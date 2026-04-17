@@ -1,4 +1,209 @@
-<h1>Welcome to kafinder.com</h1>
-<p>Explore latest devtools</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<a href="/devtools">Go to Devtools</a>
+<title>KaFinder DevTools – Developer Tools</title>
+<meta name="description" content="Fast, simple developer tools by KaFinder. Format, debug, and build better.">
+
+<link rel="icon" href="https://kafinder.com/favicon.ico">
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ===== DESIGN TOKENS (same as tool) ===== */
+:root{
+  --bg:#0d0d0f;
+  --bg2:#141416;
+  --bg3:#1c1c1f;
+  --txt:#eeeef2;
+  --txt2:#b2b2bc;
+  --txt3:#6c6c77;
+  --accent:#4fffb0;
+  --accent2:#162e22;
+  --border:rgba(255,255,255,0.08);
+  --r:8px;
+
+  --display:'Syne',sans-serif;
+  --sans:'DM Sans',sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--sans);
+}
+
+/* ===== HEADER ===== */
+header{
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+}
+
+.hdr{
+  max-width:1100px;
+  margin:auto;
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+}
+
+.logo{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:18px;
+  text-decoration:none;
+  color:var(--txt);
+}
+
+.logo em{
+  color:var(--accent);
+  font-style:normal;
+}
+
+/* ===== HERO ===== */
+.hero{
+  max-width:900px;
+  margin:0 auto;
+  padding:80px 20px 60px;
+  text-align:center;
+}
+
+.hero h1{
+  font-family:var(--display);
+  font-size:44px;
+  font-weight:700;
+  letter-spacing:-0.5px;
+  margin-bottom:16px;
+}
+
+.hero p{
+  font-size:16px;
+  color:var(--txt2);
+  line-height:1.7;
+  margin-bottom:32px;
+}
+
+/* ===== CTA ===== */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:12px 22px;
+  border-radius:var(--r);
+  text-decoration:none;
+  font-size:14px;
+  font-weight:600;
+
+  background:var(--accent);
+  color:#000;
+  transition:.15s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  filter:brightness(1.1);
+}
+
+/* ===== FEATURES GRID ===== */
+.grid{
+  max-width:1100px;
+  margin:40px auto 80px;
+  padding:0 20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+}
+
+.card{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:18px;
+  text-align:left;
+  transition:.15s;
+}
+
+.card:hover{
+  background:var(--bg3);
+  transform:translateY(-2px);
+}
+
+.card h3{
+  font-size:14px;
+  margin-bottom:6px;
+}
+
+.card p{
+  font-size:13px;
+  color:var(--txt3);
+}
+
+/* ===== FOOTER ===== */
+footer{
+  border-top:1px solid var(--border);
+  padding:18px 20px;
+  text-align:center;
+  font-size:12px;
+  color:var(--txt3);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:600px){
+  .hero h1{font-size:32px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="hdr">
+    <a href="/" class="logo">ka<em>finder</em></a>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Developer tools that just work</h1>
+
+  <p>
+    Fast, minimal, and powerful utilities built for developers.<br>
+    Format, debug, and build better — all in one place.
+  </p>
+
+  <a href="/devtools/" class="btn">
+    Explore DevTools →
+  </a>
+</section>
+<!-- 
+<section class="grid">
+  <div class="card">
+    <h3>JSON Formatter</h3>
+    <p>Validate, beautify, and analyze JSON instantly.</p>
+  </div>
+
+  <div class="card">
+    <h3>Base64 Tools</h3>
+    <p>Encode and decode data quickly in your browser.</p>
+  </div>
+
+  <div class="card">
+    <h3>URL Encoder</h3>
+    <p>Cleanly encode and decode URLs for APIs.</p>
+  </div>
+
+  <div class="card">
+    <h3>JWT Decoder</h3>
+    <p>Inspect and debug authentication tokens.</p>
+  </div>
+</section> -->
+
+<footer>
+  Built for developers · More tools coming soon
+</footer>
+
+</body>
+</html>
