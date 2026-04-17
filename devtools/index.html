@@ -1,9 +1,190 @@
-<h1>Devtools</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<ul>
-  <li>
-    <a href="/devtools/json-formatter">
-      JSON Formatter
+<title>DevTools – KaFinder</title>
+<meta name="description" content="Explore developer tools by KaFinder. JSON formatter, encoders, debuggers and more.">
+
+<link rel="icon" href="https://kafinder.com/favicon.ico">
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ===== DESIGN TOKENS ===== */
+:root{
+  --bg:#0d0d0f;
+  --bg2:#141416;
+  --bg3:#1c1c1f;
+  --txt:#eeeef2;
+  --txt2:#b2b2bc;
+  --txt3:#6c6c77;
+  --accent:#4fffb0;
+  --accent2:#162e22;
+  --border:rgba(255,255,255,0.08);
+  --r:8px;
+
+  --display:'Syne',sans-serif;
+  --sans:'DM Sans',sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--sans);
+}
+
+/* ===== HEADER ===== */
+header{
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+}
+
+.hdr{
+  max-width:1100px;
+  margin:auto;
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+}
+
+.logo{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:18px;
+  text-decoration:none;
+  color:var(--txt);
+}
+
+.logo em{
+  color:var(--accent);
+  font-style:normal;
+}
+
+/* ===== PAGE HEADER ===== */
+.page{
+  max-width:1100px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.page h1{
+  font-family:var(--display);
+  font-size:32px;
+  margin-bottom:8px;
+}
+
+.page p{
+  font-size:14px;
+  color:var(--txt2);
+  margin-bottom:28px;
+}
+
+/* ===== GRID ===== */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:14px;
+}
+
+/* ===== CARD ===== */
+.card{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:18px;
+  text-decoration:none;
+  color:inherit;
+  transition:.15s;
+  display:block;
+}
+
+.card:hover{
+  background:var(--bg3);
+  transform:translateY(-2px);
+}
+
+.card h3{
+  font-size:14px;
+  margin-bottom:6px;
+}
+
+.card p{
+  font-size:12.5px;
+  color:var(--txt3);
+}
+
+/* ===== TAG ===== */
+.tag{
+  display:inline-block;
+  margin-top:10px;
+  font-size:10px;
+  padding:3px 8px;
+  border-radius:999px;
+  background:var(--accent2);
+  color:var(--accent);
+}
+
+/* ===== FOOTER ===== */
+footer{
+  border-top:1px solid var(--border);
+  padding:18px;
+  text-align:center;
+  font-size:12px;
+  color:var(--txt3);
+  margin-top:60px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="hdr">
+    <a href="/" class="logo">ka<em>finder</em></a>
+  </div>
+</header>
+
+<div class="page">
+  <h1>DevTools</h1>
+  <p>Simple, fast, and privacy-first tools for everyday development tasks.</p>
+
+  <div class="grid">
+
+    <a href="/devtools/json-formatter" class="card">
+      <h3>JSON Formatter</h3>
+      <p>Format, validate, and analyze JSON instantly in your browser.</p>
+      <span class="tag">Live</span>
     </a>
-  </li>
-</ul>
+
+    <!-- Future tools -->
+    <div class="card" style="opacity:.5;cursor:not-allowed">
+      <h3>Base64 Encoder</h3>
+      <p>Encode and decode Base64 strings easily.</p>
+      <span class="tag">Coming soon</span>
+    </div>
+
+    <div class="card" style="opacity:.5;cursor:not-allowed">
+      <h3>URL Encoder</h3>
+      <p>Encode and decode URLs safely.</p>
+      <span class="tag">Coming soon</span>
+    </div>
+
+    <div class="card" style="opacity:.5;cursor:not-allowed">
+      <h3>JWT Decoder</h3>
+      <p>Inspect and debug JWT tokens.</p>
+      <span class="tag">Coming soon</span>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  Built for developers · No tracking · 100% browser-based
+</footer>
+
+</body>
+</html>
