@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSON Formatter & Validator Online – Free JSON Beautifier | KaFinder DevTools</title>
+<meta name="description" content="Free online JSON formatter, validator, and beautifier. Supports RFC 8259, JSON5, JSONC. File upload, templates, syntax highlight, dark mode. No login required.">
+<meta name="keywords" content="json formatter, json validator, json beautifier, json online, format json, json pretty print, json minifier, rfc 8259, json lint, json5">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kafinder.com/devtools/json-formatter">
+<meta property="og:title" content="JSON Formatter & Validator – KaFinder DevTools">
+<meta property="og:description" content="Format, validate, and beautify JSON instantly. Supports RFC 8259, file upload, templates. 100% in-browser.">
+<meta property="og:url" content="https://kafinder.com/devtools/json-formatter">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5401702027866871" crossorigin="anonymous"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "JSON Formatter & Validator",
+  "url": "https://kafinder.com/devtools/json-formatter",
+  "description": "Free online JSON formatter, validator and beautifier. RFC 8259 compliant.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0" },
+  "featureList": ["JSON formatting", "JSON validation", "JSON minification", "File upload", "Syntax highlighting"]
+}
+</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:       #0d0d0f;
+  --bg2:      #141416;
+  --bg3:      #1c1c1f;
+  --bg4:      #242428;
+  --bg5:      #2e2e33;
+  --txt:      #eeeef2;
+  --txt2:     #b2b2bc;
+  --txt3:     #6c6c77;
+  --txt4:     #45454e;
+  --accent:   #4fffb0;
+  --accent2:  #162e22;
+  --red:      #ff4545;
+  --red2:     #2d0f0f;
+  --yellow:   #ffc94d;
+  --blue:     #5ea8ff;
+  --border:   rgba(255,255,255,0.065);
+  --border2:  rgba(255,255,255,0.11);
+  --r:        6px;
+  --r2:       10px;
+  --shadow:   0 2px 8px rgba(0,0,0,0.5);
+  --mono:     'JetBrains Mono',monospace;
+  --sans:     'DM Sans',sans-serif;
+  --display:  'Syne',sans-serif;
+}
+body.light{
+  --bg:       #f5f5f7;
+  --bg2:      #ffffff;
+  --bg3:      #f0f0f2;
+  --bg4:      #e4e4e8;
+  --bg5:      #d8d8de;
+  --txt:      #111114;
+  --txt2:     #3a3a44;
+  --txt3:     #888892;
+  --txt4:     #acacb4;
+  --accent:   #007a4d;
+  --accent2:  #e0f5ec;
+  --red:      #d42020;
+  --red2:     #fde8e8;
+  --yellow:   #b06f00;
+  --blue:     #1a5ec7;
+  --border:   rgba(0,0,0,0.07);
+  --border2:  rgba(0,0,0,0.13);
+  --shadow:   0 2px 8px rgba(0,0,0,0.09);
+}
+
+html{font-size:15px}
+body{font-family:var(--sans);background:var(--bg);color:var(--txt);min-height:100vh;line-height:1.6;transition:background .18s,color .18s}
+
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:var(--txt4)}
+
+/* ── HEADER ── */
+header{background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50}
+.hdr{max-width:1380px;margin:0 auto;padding:0 20px;height:50px;display:flex;align-items:center;gap:20px}
+.logo{font-family:var(--display);font-size:16px;font-weight:800;color:var(--txt);text-decoration:none;letter-spacing:-.5px;white-space:nowrap}
+.logo em{color:var(--accent);font-style:normal}
+.logo .slash{color:var(--txt4);font-weight:400;margin:0 3px}
+.logo .sub{font-weight:500;color:var(--txt3)}
+.nav{display:flex;gap:1px;flex:1;overflow-x:auto}
+.nav a{font-size:13px;color:var(--txt3);text-decoration:none;padding:5px 11px;border-radius:var(--r);white-space:nowrap;transition:color .12s,background .12s}
+.nav a:hover{color:var(--txt2);background:var(--bg3)}
+.nav a.on{color:var(--accent);background:var(--accent2);font-weight:500}
+.hdr-r{margin-left:auto;display:flex;gap:8px;align-items:center;flex-shrink:0}
+.icon-btn{width:33px;height:33px;border-radius:var(--r);border:1px solid var(--border2);background:var(--bg3);color:var(--txt3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;flex-shrink:0}
+.icon-btn:hover{background:var(--bg4);color:var(--txt)}
+.icon-btn svg{width:15px;height:15px;pointer-events:none}
+
+/* ── AD STRIP ── */
+.ad-strip{background:var(--bg2);border-bottom:1px solid var(--border);padding:6px 20px;display:flex;justify-content:center}
+.ad-box{background:var(--bg3);border:1px dashed var(--border2);border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:11px;font-family:var(--mono);color:var(--txt4);letter-spacing:.3px}
+.ad-leader{width:min(728px,100%);height:90px}
+.ad-rect{width:300px;height:250px}
+.ad-half{width:300px;height:600px}
+
+/* ── PAGE ── */
+.page{max-width:1380px;margin:0 auto;padding:22px 20px 52px;display:grid;grid-template-columns:1fr 308px;gap:22px;align-items:start}
+.main{display:flex;flex-direction:column;gap:14px;min-width:0}
+.side{display:flex;flex-direction:column;gap:18px;position:sticky;top:68px}
+
+/* ── TITLE ── */
+.title-row h1{font-family:var(--display);font-size:21px;font-weight:700;letter-spacing:-.5px;line-height:1.25}
+.title-row p{font-size:13px;color:var(--txt3);margin-top:3px}
+.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.tag{font-size:10.5px;font-weight:500;font-family:var(--mono);padding:2px 8px;border-radius:99px;border:1px solid var(--border2);color:var(--txt4);background:var(--bg3);letter-spacing:.3px;white-space:nowrap}
+.tag.hi{border-color:var(--accent);color:var(--accent);background:var(--accent2)}
+
+/* ── TOOLBAR ── */
+.toolbar{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:9px 13px;display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.tg{display:flex;align-items:center;gap:7px}
+.tlabel{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.9px;color:var(--txt4);white-space:nowrap}
+.seg{display:flex;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:2px;gap:1px}
+.sb{font-size:11.5px;font-family:var(--mono);font-weight:500;color:var(--txt3);background:none;border:none;padding:4px 9px;border-radius:4px;cursor:pointer;transition:all .12s;white-space:nowrap}
+.sb:hover{color:var(--txt2);background:var(--bg4)}
+.sb.on{background:var(--bg2);color:var(--txt);box-shadow:0 1px 4px rgba(0,0,0,.35)}
+body.light .sb.on{box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.tsel{font-size:12px;font-family:var(--mono);background:var(--bg3);border:1px solid var(--border);color:var(--txt2);border-radius:var(--r);padding:5px 9px;cursor:pointer;outline:none;transition:border-color .12s}
+.tsel:hover,.tsel:focus{border-color:var(--border2)}
+.tsel option{background:var(--bg2)}
+.tsep{width:1px;height:20px;background:var(--border2);flex-shrink:0}
+.tright{margin-left:auto;display:flex;align-items:center;gap:5px}
+.kbd{font-family:var(--mono);font-size:10px;padding:1px 5px;border-radius:3px;background:var(--bg4);border:1px solid var(--border2);color:var(--txt4)}
+
+/* ── EDITOR SHELL ── */
+.shell{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;box-shadow:var(--shadow)}
+.panes{display:grid;grid-template-columns:1fr 1fr}
+.pane{display:flex;flex-direction:column;min-height:420px}
+.pane:first-child{border-right:1px solid var(--border)}
+.pbar{display:flex;align-items:center;gap:9px;padding:7px 13px;border-bottom:1px solid var(--border);background:var(--bg3);min-height:37px}
+.ptitle{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.9px;color:var(--txt4)}
+.pacts{display:flex;gap:5px;margin-left:auto}
+.pbtn{font-size:11px;font-family:var(--mono);color:var(--txt3);background:none;border:1px solid var(--border2);border-radius:4px;padding:3px 9px;cursor:pointer;transition:all .12s;white-space:nowrap}
+.pbtn:hover{color:var(--txt2);background:var(--bg4)}
+.pbtn.hi{color:var(--accent);border-color:var(--accent2)}
+.pbtn.hi:hover{background:var(--accent2)}
+.upload-wrap{position:relative;overflow:hidden}
+.upload-wrap input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0}
+
+#inp{flex:1;width:100%;min-height:380px;font-family:var(--mono);font-size:13px;line-height:1.68;padding:15px;border:none;resize:none;outline:none;background:var(--bg2);color:var(--txt);tab-size:2;transition:background .15s;display:block}
+#inp::placeholder{color:var(--txt4)}
+#inp:focus{background:var(--bg)}
+#out{flex:1;min-height:380px;font-family:var(--mono);font-size:13px;line-height:1.68;padding:15px;overflow:auto;white-space:pre-wrap;word-break:break-all;background:var(--bg2);color:var(--txt);user-select:text}
+.out-ph{color:var(--txt4);font-style:italic}
+
+/* Syntax colors */
+.jk {color:#7dd3fc} .jkq{color:#a5b4fc}
+.js {color:#86efac} .jn {color:#fdba74}
+.jb {color:#d8b4fe} .jnu{color:var(--txt4)}
+.jp {color:var(--txt4)}
+body.light .jk {color:#1e5bab} body.light .jkq{color:#4338ca}
+body.light .js {color:#166534} body.light .jn {color:#9a3412}
+body.light .jb {color:#6b21a8} body.light .jnu{color:#9ca3af}
+
+/* ── STATUS BAR ── */
+.sbar{padding:7px 13px;border-top:1px solid var(--border);background:var(--bg3);display:flex;align-items:center;gap:11px;font-size:11.5px;min-height:34px}
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--txt4);flex-shrink:0;transition:background .15s}
+.sdot.ok  {background:var(--accent);box-shadow:0 0 7px var(--accent)}
+.sdot.err {background:var(--red);   box-shadow:0 0 7px var(--red)}
+.smsg{font-family:var(--mono);font-size:11.5px;color:var(--txt3)}
+.smsg.ok {color:var(--accent)}
+.smsg.err{color:var(--red)}
+.sstats{margin-left:auto;display:flex;gap:14px;font-size:11px;font-family:var(--mono);color:var(--txt4)}
+.sstats span{color:var(--txt3)}
+
+/* ── ACTIONS ── */
+.actions{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.btn{font-family:var(--sans);font-size:13px;font-weight:500;padding:8px 17px;border-radius:var(--r);border:1px solid transparent;cursor:pointer;transition:all .13s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;line-height:1}
+.btn svg{width:13px;height:13px;flex-shrink:0}
+.btn-p{background:var(--accent);color:#000;border-color:var(--accent);font-weight:700}
+.btn-p:hover{filter:brightness(1.12)}
+.btn-s{background:var(--bg3);color:var(--txt2);border-color:var(--border2)}
+.btn-s:hover{background:var(--bg4);color:var(--txt)}
+.btn-g{background:none;color:var(--txt3);border-color:var(--border)}
+.btn-g:hover{background:var(--bg3);color:var(--txt2)}
+.btn-d{background:none;color:var(--red);border-color:rgba(255,68,68,.22)}
+.btn-d:hover{background:var(--red2)}
+.btn-ml{margin-left:auto}
+
+/* ── STATS PANEL ── */
+.stats-shell{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.stats-hd{padding:9px 13px;border-bottom:1px solid var(--border);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.9px;color:var(--txt4);background:var(--bg3)}
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr)}
+.sc{padding:13px 15px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.sc:nth-child(4n){border-right:none}
+.sc:nth-last-child(-n+4){border-bottom:none}
+.sv{font-family:var(--display);font-size:22px;font-weight:700;color:var(--txt);line-height:1;margin-bottom:4px}
+.sl{font-size:10.5px;color:var(--txt4);text-transform:uppercase;letter-spacing:.5px}
+
+/* ── SIDEBAR PANELS ── */
+.sp{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.sphd{padding:9px 13px;border-bottom:1px solid var(--border);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.9px;color:var(--txt4);background:var(--bg3)}
+.tlist{padding:5px 0}
+.titem{display:flex;align-items:center;gap:9px;padding:7px 13px;font-size:13px;color:var(--txt2);text-decoration:none;transition:background .1s;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:var(--sans)}
+.titem:hover{background:var(--bg3);color:var(--txt)}
+.titem.on{background:var(--accent2);color:var(--accent)}
+.titem .ic{font-size:13px;width:20px;text-align:center;flex-shrink:0;font-style:normal}
+.soon{font-size:10px;font-family:var(--mono);padding:1px 6px;background:var(--bg4);color:var(--txt4);border-radius:99px;margin-left:auto;border:1px solid var(--border)}
+
+/* ── SEO BLOCK ── */
+.seo{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:24px}
+.seo h2{font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:-.3px;margin-bottom:10px}
+.seo p{font-size:13.5px;color:var(--txt2);line-height:1.78;margin-bottom:10px}
+.seo strong{color:var(--txt);font-weight:600}
+.faq{margin-top:18px;display:flex;flex-direction:column;gap:0}
+.fi{border-top:1px solid var(--border);padding:14px 0 2px}
+.fq{font-size:14px;font-weight:600;margin-bottom:5px}
+.fa{font-size:13px;color:var(--txt2);line-height:1.72}
+.fa code{font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 5px;border-radius:3px;color:var(--accent)}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:16px 20px;background:var(--bg2)}
+.fi2{max-width:1380px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.flinks{display:flex;gap:3px}
+.flinks a{color:var(--txt4);text-decoration:none;padding:3px 8px;border-radius:var(--r);font-size:12.5px;transition:color .12s}
+.flinks a:hover{color:var(--txt3)}
+.fcopy{color:var(--txt4);font-size:12px}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--bg4);border:1px solid var(--border2);color:var(--txt);font-size:12.5px;padding:8px 18px;border-radius:99px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:all .2s;white-space:nowrap;z-index:9999;font-family:var(--mono)}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── DRAG OVER ── */
+#inp.dragover{outline:2px solid var(--accent);outline-offset:-2px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:980px){
+  .page{grid-template-columns:1fr}
+  .side{position:static}
+  .ad-half{display:none}
+  .sgrid{grid-template-columns:repeat(2,1fr)}
+  .sc:nth-child(2n){border-right:none}
+  .sc:nth-last-child(-n+2){border-bottom:none}
+  .sc:nth-child(2n-1){border-right:1px solid var(--border)}
+  .ad-leader{height:50px}
+}
+@media(max-width:620px){
+  .panes{grid-template-columns:1fr}
+  .pane:first-child{border-right:none;border-bottom:1px solid var(--border)}
+  .nav{display:none}
+  .tsep{display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr">
+    <a href="https://kafinder.com" class="logo">ka<em>finder</em><span class="slash">/</span><span class="sub">devtools</span></a>
+    <nav class="nav">
+      <!-- <a href="/devtools/json-formatter" class="on">JSON</a>
+      <a href="/devtools/base64">Base64</a>
+      <a href="/devtools/url-encode">URL Encode</a>
+      <a href="/devtools/jwt">JWT</a>
+      <a href="/devtools/regex">Regex</a>
+      <a href="/devtools/timestamp">Timestamp</a>
+      <a href="/devtools" style="margin-left:4px">All tools →</a> -->
+    </nav>
+    <div class="hdr-r">
+      <button class="icon-btn" id="themeBtn" title="Toggle theme">
+        <svg id="imoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="isun" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- TOP AD SLOT — Leaderboard 728×90 -->
+
+
+  <ins class="adsbygoogle" style="display:block;width:728px;height:90px"
+       data-ad-client="ca-pub-5401702027866871"
+       data-ad-slot="0000000000"></ins>
+  <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+<!-- <div class="ad-strip">
+  <div class="ad-box ad-leader">AdSense 728×90 — Leaderboard (replace with &lt;ins&gt; tag)</div>
+</div> -->
+
+<div class="page">
+<main class="main">
+
+  <div class="title-row">
+    <h1>JSON Formatter &amp; Validator</h1>
+    <p>Beautify, minify, validate and share JSON instantly. All processing stays in your browser.</p>
+    <div class="tags">
+      <span class="tag hi" id="spec-tag">RFC 8259</span>
+      <span class="tag" id="indent-tag">2 spaces</span>
+      <span class="tag">100% in-browser</span>
+      <span class="tag">Free forever</span>
+      <span class="tag">No login</span>
+    </div>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="tg">
+      <span class="tlabel">Indent</span>
+      <div class="seg" id="indent-ctrl">
+        <button class="sb on" data-v="2">2</button>
+        <button class="sb" data-v="3">3</button>
+        <button class="sb" data-v="4">4</button>
+        <button class="sb" data-v="tab">Tab</button>
+        <button class="sb" data-v="0">Compact</button>
+      </div>
+    </div>
+    <div class="tsep"></div>
+    <div class="tg">
+      <span class="tlabel">Template</span>
+      <select class="tsel" id="tpl-sel">
+        <option value="">— Insert template —</option>
+        <optgroup label="Basic">
+          <option value="empty_obj">Empty object  {}</option>
+          <option value="empty_arr">Empty array  []</option>
+          <option value="kv">Key–value pair</option>
+        </optgroup>
+        <optgroup label="Common patterns">
+          <option value="user">User object</option>
+          <option value="api">API response</option>
+          <option value="paged">Paginated list</option>
+          <option value="err">Error response</option>
+          <option value="cfg">App config</option>
+          <option value="geo">GeoJSON point</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="tsep"></div>
+    <div class="tg">
+      <span class="tlabel">Spec</span>
+      <select class="tsel" id="spec-sel">
+        <option value="rfc">RFC 8259 (strict)</option>
+        <option value="json5">JSON5 (relaxed)</option>
+        <option value="jsonc">JSONC (comments)</option>
+      </select>
+    </div>
+    <div class="tright">
+      <span style="font-size:11px;color:var(--txt4);font-family:var(--mono)">
+        <kbd class="kbd">Ctrl</kbd>+<kbd class="kbd">Enter</kbd> format
+      </span>
+    </div>
+  </div>
+
+  <!-- EDITOR -->
+  <div class="shell">
+    <div class="panes">
+      <div class="pane">
+        <div class="pbar">
+          <span class="ptitle">Input</span>
+          <div class="pacts">
+            <button class="pbtn" id="btn-paste">Paste</button>
+            <div class="upload-wrap">
+              <button class="pbtn">Upload</button>
+              <input type="file" id="file-in" accept=".json,.txt,application/json,text/plain">
+            </div>
+            <button class="pbtn" id="btn-clr-in">Clear</button>
+          </div>
+        </div>
+        <textarea id="inp" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"
+          placeholder='Paste JSON here, or upload a file…
+
+{
+  "name": "KaFinder DevTools",
+  "version": "1.0",
+  "tools": ["json", "base64", "url", "jwt"]
+}'></textarea>
+      </div>
+
+      <div class="pane">
+        <div class="pbar">
+          <span class="ptitle">Output</span>
+          <div class="pacts">
+            <button class="pbtn hi" id="btn-copy">Copy</button>
+            <button class="pbtn" id="btn-dl">Download</button>
+            <button class="pbtn" id="btn-share">Share URL</button>
+          </div>
+        </div>
+        <div id="out"><span class="out-ph">Formatted output appears here…</span></div>
+      </div>
+    </div>
+
+    <div class="sbar">
+      <div class="sdot" id="sdot"></div>
+      <span class="smsg" id="smsg">Ready — paste or upload JSON</span>
+      <div class="sstats" id="sstats" style="display:none">
+        Lines: <span id="st-ln">—</span>&nbsp;&nbsp;
+        Size: <span id="st-sz">—</span>&nbsp;&nbsp;
+        Depth: <span id="st-dp">—</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTION BUTTONS -->
+  <div class="actions">
+    <button class="btn btn-p" id="btn-fmt">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Format &amp; Validate
+    </button>
+    <button class="btn btn-s" id="btn-min">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+      Minify
+    </button>
+    <button class="btn btn-s" id="btn-sort">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      Sort Keys
+    </button>
+    <button class="btn btn-g" id="btn-esc">Escape</button>
+    <button class="btn btn-g" id="btn-unesc">Unescape</button>
+    <button class="btn btn-d btn-ml" id="btn-clr-all">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+      Clear all
+    </button>
+  </div>
+
+  <!-- JSON STATS PANEL -->
+  <div class="stats-shell" id="stats-panel" style="display:none">
+    <div class="stats-hd">JSON Statistics</div>
+    <div class="sgrid">
+      <div class="sc"><div class="sv" id="s-keys">—</div><div class="sl">Total keys</div></div>
+      <div class="sc"><div class="sv" id="s-dep">—</div><div class="sl">Max depth</div></div>
+      <div class="sc"><div class="sv" id="s-arr">—</div><div class="sl">Arrays</div></div>
+      <div class="sc"><div class="sv" id="s-sz">—</div><div class="sl">Size</div></div>
+    </div>
+  </div>
+
+  <!-- SEO CONTENT -->
+  <div class="seo">
+    <h2>Free Online JSON Formatter, Validator &amp; Beautifier</h2>
+    <p>KaFinder's JSON Formatter is a fast, privacy-first tool built for developers. Paste any JSON string or upload a <code>.json</code> file and instantly format it with your choice of indentation — 2 spaces, 3 spaces, 4 spaces, tabs, or compact. Everything runs 100% in your browser; your data never touches our servers.</p>
+    <p>The validator follows <strong>RFC 8259</strong> (the official IETF JSON Internet Standard) and reports errors with exact position info. Switch to <strong>JSON5</strong> for relaxed parsing that allows single-quoted strings, comments and trailing commas. Use <strong>JSONC mode</strong> for VS Code-style configs with <code>// line</code> and <code>/* block */</code> comments.</p>
+    <p>Additional features: sort all keys alphabetically, minify for production, escape/unescape JSON strings, generate a shareable URL, and download the result as a <code>.json</code> file.</p>
+    <div class="faq">
+      <div class="fi">
+        <div class="fq">What is RFC 8259?</div>
+        <div class="fa">RFC 8259 is the official IETF Internet Standard for JSON, published in December 2017. It requires double-quoted keys, forbids trailing commas, and disallows <code>NaN</code> and <code>Infinity</code>. All modern REST APIs conform to this standard.</div>
+      </div>
+      <div class="fi">
+        <div class="fq">How do I format JSON with 4-space indentation?</div>
+        <div class="fa">Click the <code>4</code> button in the Indent control in the toolbar above the editor, then click <strong>Format &amp; Validate</strong>. You can also press <code>Ctrl+Enter</code> as a shortcut.</div>
+      </div>
+      <div class="fi">
+        <div class="fq">Can I upload a JSON file directly?</div>
+        <div class="fa">Yes. Click the Upload button in the input pane header to open a file picker. You can also drag and drop any <code>.json</code> or <code>.txt</code> file directly onto the input textarea. Files are read locally in-browser — nothing is uploaded to any server.</div>
+      </div>
+      <div class="fi">
+        <div class="fq">What is the difference between JSON5 and JSONC?</div>
+        <div class="fa">JSON5 is a superset that adds single-quoted strings, unquoted keys, trailing commas, hex literals, and multiline strings. JSONC (JSON with Comments) only adds <code>//</code> and <code>/* */</code> comments — it's the format used by <code>tsconfig.json</code>, VS Code settings, and ESLint configs.</div>
+      </div>
+      <div class="fi">
+        <div class="fq">How does the Share URL feature work?</div>
+        <div class="fa">The Share button encodes your JSON as a Base64 string and appends it to the page URL as a query parameter. You can send this URL to anyone and they'll see your JSON pre-loaded and formatted. Works for JSON up to ~6 KB.</div>
+      </div>
+      <div class="fi">
+        <div class="fq">Is my data safe and private?</div>
+        <div class="fa">Completely. This tool runs entirely in JavaScript in your browser. No JSON data is ever sent to KaFinder's servers. You can even use it offline after the initial page load.</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- SIDEBAR -->
+<aside class="side">
+
+  <!-- SIDEBAR AD — Rectangle 300×250  -->
+    <ins class="adsbygoogle" style="display:block;width:300px;height:250px"
+         data-ad-client="ca-pub-5401702027866871"
+         data-ad-slot="1111111111"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+
+  <!-- <div class="sp">
+    <div class="ad-box ad-rect" style="width:100%;height:250px">AdSense 300×250 — Medium Rectangle</div>
+  </div> -->
+
+  <div class="sp">
+    <div class="sphd">DevTools Suite</div>
+    <div class="tlist">
+      <a href="/devtools/json-formatter" class="titem on"><i class="ic">{}</i> JSON Formatter <span class="soon">soon</span></a>
+      <a href="/devtools/json-formatter"         class="titem"><i class="ic">64</i> Base64 Encode/Decode <span class="soon">soon</span></a>
+      <a href="/devtools/json-formatter"     class="titem"><i class="ic">%</i> URL Encoder <span class="soon">soon</span></a>
+      <a href="/devtools/json-formatter"            class="titem"><i class="ic">🔑</i> JWT Decoder <span class="soon">soon</span></a>
+      <a href="/devtools/json-formatter"          class="titem"><i class="ic">.*</i> Regex Tester <span class="soon">soon</span></a>
+      <a href="/devtools/json-formatter"      class="titem"><i class="ic">⏱</i> Timestamp Conv. <span class="soon">soon</span></a>
+      <a href="/devtools/json-formatter"           class="titem"><i class="ic">±</i> Diff Checker <span class="soon">soon</span></a>
+      <a href="/devtools/json-formatter"           class="titem"><i class="ic">#</i> UUID Generator <span class="soon">soon</span></a>
+      <a href="/devtools/json-formatter"          class="titem"><i class="ic">◉</i> Color Converter <span class="soon">soon</span></a>
+    </div>
+  </div>
+
+
+    <!-- SIDEBAR AD — Half Page 300×600 -->
+    <ins class="adsbygoogle" style="display:block;width:300px;height:600px"
+         data-ad-client="ca-pub-5401702027866871"
+         data-ad-slot="2222222222"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+
+  <!-- <div class="sp">
+    <div class="ad-box ad-half" style="width:100%;height:600px">AdSense 300×600 — Half Page</div>
+  </div> -->
+
+</aside>
+</div>
+
+<footer>
+  <div class="fi2">
+    <a href="https://kafinder.com" class="logo" style="font-size:15px">ka<em>finder</em></a>
+    <div class="flinks">
+      <a href="/devtools">DevTools</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/contact">Contact</a>
+    </div>
+    <div class="fcopy">© 2025 KaFinder · All processing in-browser · No data collected</div>
+  </div>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+/* ══════════════════════════════════════════
+   KAFINDER — JSON FORMATTER v1.0
+   ══════════════════════════════════════════ */
+const G = id => document.getElementById(id);
+
+let indent = 2;           // 0 = compact, '\t' = tab, int = spaces
+let spec   = 'rfc';       // rfc | json5 | jsonc
+let parsed = null;        // last successfully parsed value
+
+const inEl   = G('inp');
+const outEl  = G('out');
+const sdot   = G('sdot');
+const smsg   = G('smsg');
+const sstats = G('sstats');
+const statsP = G('stats-panel');
+
+/* ── Theme ─────────────────────────────── */
+if (localStorage.getItem('kf-t') === 'light') setLight();
+function setLight(){ document.body.classList.add('light'); G('imoon').style.display='none'; G('isun').style.display=''; }
+function setDark (){ document.body.classList.remove('light'); G('imoon').style.display=''; G('isun').style.display='none'; }
+G('themeBtn').onclick = () => {
+  const l = document.body.classList.contains('light');
+  l ? (setDark(), localStorage.setItem('kf-t','dark')) : (setLight(), localStorage.setItem('kf-t','light'));
+};
+
+/* ── Indent control ─────────────────────── */
+G('indent-ctrl').addEventListener('click', e => {
+  const b = e.target.closest('.sb'); if (!b) return;
+  G('indent-ctrl').querySelectorAll('.sb').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  const v = b.dataset.v;
+  indent = v==='tab' ? '\t' : v==='0' ? 0 : parseInt(v);
+  G('indent-tag').textContent = {'\t':'Tab',0:'Compact',2:'2 spaces',3:'3 spaces',4:'4 spaces'}[indent]??`${indent} sp`;
+  if (parsed!==null) render(parsed);
+});
+
+/* ── Spec select ────────────────────────── */
+G('spec-sel').onchange = e => {
+  spec = e.target.value;
+  G('spec-tag').textContent = {rfc:'RFC 8259',json5:'JSON5',jsonc:'JSONC'}[spec];
+  if (inEl.value.trim()) doFormat();
+};
+
+/* ── Templates ──────────────────────────── */
+const T = {
+  empty_obj:'{}',
+  empty_arr:'[]',
+  kv:'{\n  "key": "value"\n}',
+  user:()=>JSON.stringify({id:1,name:"Jane Doe",email:"jane@example.com",role:"admin",createdAt:"2025-01-15T10:30:00Z",profile:{avatar:null,bio:"Full-stack developer",location:"Mumbai, IN"}},null,2),
+  api:()=>JSON.stringify({success:true,data:{items:[{id:1,title:"Item one",active:true}],total:1},meta:{requestId:"req_abc123",timestamp:"2025-01-15T10:30:00Z",version:"v2"}},null,2),
+  paged:()=>JSON.stringify({page:1,perPage:20,total:243,totalPages:13,data:[],links:{self:"/api/items?page=1",next:"/api/items?page=2",prev:null}},null,2),
+  err:()=>JSON.stringify({error:{code:"VALIDATION_FAILED",message:"Request validation failed",details:[{field:"email",message:"Invalid email format"},{field:"age",message:"Must be a positive integer"}]},requestId:"req_xyz789",timestamp:"2025-01-15T10:30:00Z"},null,2),
+  cfg:()=>JSON.stringify({app:{name:"MyApp",env:"production",port:3000,debug:false},database:{host:"db.example.com",port:5432,name:"myapp_prod"},features:{darkMode:true,beta:false}},null,2),
+  geo:()=>JSON.stringify({type:"Feature",geometry:{type:"Point",coordinates:[72.8777,19.0760]},properties:{name:"Mumbai",country:"India",population:20667656}},null,2)
+};
+G('tpl-sel').onchange = e => {
+  const t = T[e.target.value];
+  if (t) { inEl.value = typeof t==='function'?t():t; doFormat(); }
+  e.target.value = '';
+};
+
+/* ── Parse (spec-aware) ─────────────────── */
+function doParse(raw){
+  if (spec==='jsonc'||spec==='json5'){
+    raw = raw.replace(/\/\/[^\n]*/g,'').replace(/\/\*[\s\S]*?\*\//g,'');
+  }
+  if (spec==='json5'){
+    raw = raw.replace(/,\s*([}\]])/g,'$1');
+    raw = raw.replace(/'([^'\\]*(\\.[^'\\]*)*)'/g,(_,i)=>'"'+i.replace(/"/g,'\\"')+'"');
+  }
+  return JSON.parse(raw);
+}
+
+/* ── Format ─────────────────────────────── */
+function doFormat(){
+  const raw = inEl.value.trim();
+  if (!raw){ resetUI(); return; }
+  try {
+    const v = doParse(raw);
+    parsed = v;
+    render(v);
+    const txt  = outEl.textContent;
+    const lines= txt.split('\n').length;
+    const sz   = fmtBytes(new TextEncoder().encode(raw).length);
+    const dep  = depth(v);
+    sdot.className='sdot ok';
+    smsg.className='smsg ok'; smsg.textContent='✓ Valid JSON';
+    sstats.style.display='';
+    G('st-ln').textContent=lines; G('st-sz').textContent=sz; G('st-dp').textContent=dep;
+    const s=stats(v);
+    G('s-keys').textContent=s.keys; G('s-dep').textContent=s.depth;
+    G('s-arr').textContent=s.arrays; G('s-sz').textContent=fmtBytes(JSON.stringify(v).length);
+    statsP.style.display='';
+  } catch(e){
+    parsed=null;
+    const m=cleanErr(e.message);
+    sdot.className='sdot err';
+    smsg.className='smsg err'; smsg.textContent='✗ '+m;
+    sstats.style.display='none'; statsP.style.display='none';
+    outEl.innerHTML='<span style="color:var(--red);white-space:pre-wrap;font-size:12.5px">Error: '+esc(e.message)+'</span>';
+  }
+}
+
+function doMinify(){
+  const raw=inEl.value.trim(); if(!raw) return;
+  try { const v=doParse(raw); const m=JSON.stringify(v); outEl.textContent=m; parsed=v; setOk('✓ Minified — '+fmtBytes(m.length)); }
+  catch(e){ setErr(cleanErr(e.message)); }
+}
+function doSort(){
+  const raw=inEl.value.trim(); if(!raw) return;
+  try { const v=sortKeys(doParse(raw)); parsed=v; render(v); setOk('✓ Keys sorted'); }
+  catch(e){ setErr(cleanErr(e.message)); }
+}
+function setOk(msg){ sdot.className='sdot ok'; smsg.className='smsg ok'; smsg.textContent=msg; }
+function setErr(msg){ sdot.className='sdot err'; smsg.className='smsg err'; smsg.textContent='✗ '+msg; }
+
+function sortKeys(v){
+  if (Array.isArray(v)) return v.map(sortKeys);
+  if (v!==null&&typeof v==='object') return Object.fromEntries(Object.keys(v).sort().map(k=>[k,sortKeys(v[k])]));
+  return v;
+}
+
+/* ── Render with syntax highlight ────────── */
+function render(v){
+  const ind = indent===0?null:indent;
+  outEl.innerHTML = highlight(JSON.stringify(v,null,ind===null?undefined:ind));
+}
+
+function highlight(s){
+  let h='', i=0, n=s.length, stack=[];
+  while(i<n){
+    const c=s[i];
+    if(c==='{'){stack.push('o');h+=`<span class="jp">{</span>`;i++;continue}
+    if(c==='['){stack.push('a');h+=`<span class="jp">[</span>`;i++;continue}
+    if(c==='}'){stack.pop();h+=`<span class="jp">}</span>`;i++;continue}
+    if(c===']'){stack.pop();h+=`<span class="jp">]</span>`;i++;continue}
+    if(c===':'){h+=`<span class="jp">:</span>`;i++;continue}
+    if(c===','){h+=`<span class="jp">,</span>`;i++;continue}
+    if(c===' '||c==='\n'||c==='\t'||c==='\r'){h+=esc(c);i++;continue}
+    if(c==='"'){
+      let j=i+1;
+      while(j<n){if(s[j]==='\\'){j+=2;continue}if(s[j]==='"'){j++;break}j++}
+      const tok=s.slice(i,j);
+      let k=j; while(k<n&&(s[k]===' '||s[k]==='\n'||s[k]==='\t'))k++;
+      const isK=s[k]===':'&&stack[stack.length-1]==='o';
+      h+=isK?`<span class="jkq">"</span><span class="jk">${esc(tok.slice(1,-1))}</span><span class="jkq">"</span>`
+           :`<span class="js">${esc(tok)}</span>`;
+      i=j;continue
+    }
+    if(c==='-'||(c>='0'&&c<='9')){
+      let j=i; while(j<n&&/[-+0-9.eE]/.test(s[j]))j++;
+      h+=`<span class="jn">${esc(s.slice(i,j))}</span>`;i=j;continue
+    }
+    if(s.startsWith('true',i)){h+=`<span class="jb">true</span>`;i+=4;continue}
+    if(s.startsWith('false',i)){h+=`<span class="jb">false</span>`;i+=5;continue}
+    if(s.startsWith('null',i)){h+=`<span class="jnu">null</span>`;i+=4;continue}
+    h+=esc(c);i++;
+  }
+  return h;
+}
+
+/* ── Helpers ─────────────────────────────── */
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') }
+function cleanErr(m){ return m.replace(/^SyntaxError:\s*/i,'').substring(0,140); }
+function fmtBytes(n){ return n<1024?n+' B':n<1048576?(n/1024).toFixed(1)+' KB':(n/1048576).toFixed(2)+' MB'; }
+function depth(v,d=0){
+  if(Array.isArray(v))return v.reduce((m,x)=>Math.max(m,depth(x,d+1)),d);
+  if(v!==null&&typeof v==='object')return Object.values(v).reduce((m,x)=>Math.max(m,depth(x,d+1)),d);
+  return d;
+}
+function stats(v,a={keys:0,depth:0,arrays:0},d=0){
+  a.depth=Math.max(a.depth,d);
+  if(Array.isArray(v)){a.arrays++;v.forEach(x=>stats(x,a,d+1));}
+  else if(v!==null&&typeof v==='object'){const ks=Object.keys(v);a.keys+=ks.length;ks.forEach(k=>stats(v[k],a,d+1));}
+  return a;
+}
+function resetUI(){
+  parsed=null;
+  outEl.innerHTML='<span class="out-ph">Formatted output appears here…</span>';
+  sdot.className='sdot'; smsg.className='smsg'; smsg.textContent='Ready — paste or upload JSON';
+  sstats.style.display='none'; statsP.style.display='none';
+}
+
+/* ── Button handlers ─────────────────────── */
+G('btn-fmt').onclick  = doFormat;
+G('btn-min').onclick  = doMinify;
+G('btn-sort').onclick = doSort;
+
+G('btn-esc').onclick = () => {
+  const r=inEl.value; if(!r) return;
+  outEl.textContent=JSON.stringify(r); toast('Escaped as JSON string');
+};
+G('btn-unesc').onclick = () => {
+  const r=inEl.value.trim(); if(!r) return;
+  try { const u=JSON.parse(r); if(typeof u==='string'){outEl.textContent=u;toast('Unescaped')}else{toast('Input is not a JSON string');} }
+  catch(e){toast('Invalid input');}
+};
+
+G('btn-paste').onclick = async () => {
+  try { const t=await navigator.clipboard.readText(); inEl.value=t; doFormat(); toast('Pasted from clipboard'); }
+  catch(e){ toast('Clipboard access denied'); }
+};
+G('btn-copy').onclick = async () => {
+  const t=outEl.textContent;
+  if(!t||t.includes('appears here')) return;
+  try { await navigator.clipboard.writeText(t); toast('Copied to clipboard'); }
+  catch(e){ toast('Copy failed'); }
+};
+G('btn-dl').onclick = () => {
+  const t=outEl.textContent;
+  if(!t||t.includes('appears here')) return;
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([t],{type:'application/json'}));
+  a.download='formatted.json'; a.click(); toast('Downloading…');
+};
+G('btn-share').onclick = () => {
+  const r=inEl.value.trim(); if(!r) return;
+  try {
+    doParse(r);
+    const enc=btoa(unescape(encodeURIComponent(r)));
+    const url=`${location.origin}${location.pathname}?j=${encodeURIComponent(enc)}`;
+    if(url.length>8000){toast('JSON too large for URL sharing');return;}
+    navigator.clipboard.writeText(url).then(()=>toast('Share URL copied!')).catch(()=>toast('URL ready'));
+  } catch(e){ toast('Fix errors first'); }
+};
+
+G('btn-clr-in').onclick  = () => { inEl.value=''; resetUI(); };
+G('btn-clr-all').onclick = () => { inEl.value=''; resetUI(); };
+
+/* ── File upload ─────────────────────────── */
+G('file-in').onchange = e => {
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=ev=>{inEl.value=ev.target.result;doFormat();toast('Loaded '+f.name);};
+  r.readAsText(f); e.target.value='';
+};
+
+/* ── Drag & drop ─────────────────────────── */
+inEl.addEventListener('dragover',e=>{e.preventDefault();inEl.classList.add('dragover');});
+inEl.addEventListener('dragleave',()=>inEl.classList.remove('dragover'));
+inEl.addEventListener('drop',e=>{
+  e.preventDefault(); inEl.classList.remove('dragover');
+  const f=e.dataTransfer.files[0];
+  if(f){const r=new FileReader();r.onload=ev=>{inEl.value=ev.target.result;doFormat();};r.readAsText(f);}
+  else{const t=e.dataTransfer.getData('text');if(t){inEl.value=t;doFormat();}}
+});
+
+/* ── Keyboard shortcut ───────────────────── */
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();doFormat();}});
+
+/* ── Auto-format (debounced) ─────────────── */
+let dbt;
+inEl.addEventListener('input',()=>{
+  clearTimeout(dbt);
+  dbt=setTimeout(()=>{inEl.value.trim()?doFormat():resetUI();},550);
+});
+
+/* ── Toast ───────────────────────────────── */
+function toast(m){
+  const t=G('toast'); t.textContent=m; t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'),2300);
+}
+
+/* ── Load from shared URL ────────────────── */
+(()=>{
+  const p=new URLSearchParams(location.search).get('j');
+  if(!p) return;
+  try { inEl.value=decodeURIComponent(escape(atob(decodeURIComponent(p)))); doFormat(); toast('Loaded from shared URL'); }
+  catch(e){}
+})();
+</script>
+</body>
+</html>
