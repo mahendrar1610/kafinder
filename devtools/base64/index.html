@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base64 Encoder & Decoder Online – Free Tool | KaFinder DevTools</title>
+<meta name="description" content="Free online Base64 encoder and decoder. Encode text or files to Base64, decode Base64 strings instantly. Supports URL-safe Base64, file upload, and image preview. 100% in-browser.">
+<meta name="keywords" content="base64 encoder, base64 decoder, base64 online, encode base64, decode base64, base64 to text, text to base64, base64 image, url safe base64">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kafinder.com/devtools/base64">
+<meta property="og:title" content="Base64 Encoder & Decoder – KaFinder DevTools">
+<meta property="og:description" content="Encode and decode Base64 instantly. Supports text, files and images. URL-safe mode. 100% in-browser.">
+<meta property="og:url" content="https://kafinder.com/devtools/base64">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" href="https://kafinder.com/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6683900073553699" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Base64 Encoder & Decoder",
+  "url": "https://kafinder.com/devtools/base64",
+  "description": "Free online Base64 encoder and decoder. Supports text, files, images and URL-safe mode.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0" },
+  "featureList": ["Base64 encoding", "Base64 decoding", "File to Base64", "Image preview", "URL-safe Base64"]
+}
+</script>
+
+<!-- FAQPage schema for SEO rich snippets -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is Base64 encoding?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Base64 is a binary-to-text encoding scheme that represents binary data using 64 ASCII characters (A-Z, a-z, 0-9, +, /). It is commonly used to embed binary data like images or files inside text formats such as HTML, CSS, JSON and email." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is URL-safe Base64?",
+      "acceptedAnswer": { "@type": "Answer", "text": "URL-safe Base64 replaces + with - and / with _ so the encoded string can be safely used in URLs and filenames without percent-encoding. It is defined in RFC 4648 Section 5." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I encode an image to Base64?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Upload any image file and this tool will generate a Base64 data URI (data:image/png;base64,...) that you can embed directly in HTML or CSS." }
+    }
+  ]
+}
+</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:       #0d0d0f;
+  --bg2:      #141416;
+  --bg3:      #1c1c1f;
+  --bg4:      #242428;
+  --bg5:      #2e2e33;
+  --txt:      #eeeef2;
+  --txt2:     #b2b2bc;
+  --txt3:     #6c6c77;
+  --txt4:     #45454e;
+  --accent:   #4fffb0;
+  --accent2:  #162e22;
+  --red:      #ff4545;
+  --red2:     #2d0f0f;
+  --yellow:   #ffc94d;
+  --blue:     #5ea8ff;
+  --orange:   #ff8c42;
+  --border:   rgba(255,255,255,0.065);
+  --border2:  rgba(255,255,255,0.11);
+  --r:        6px;
+  --r2:       10px;
+  --shadow:   0 2px 8px rgba(0,0,0,0.5);
+  --mono:     'JetBrains Mono',monospace;
+  --sans:     'DM Sans',sans-serif;
+  --display:  'Syne',sans-serif;
+}
+body.light{
+  --bg:       #f5f5f7;
+  --bg2:      #ffffff;
+  --bg3:      #f0f0f2;
+  --bg4:      #e4e4e8;
+  --bg5:      #d8d8de;
+  --txt:      #111114;
+  --txt2:     #3a3a44;
+  --txt3:     #888892;
+  --txt4:     #acacb4;
+  --accent:   #007a4d;
+  --accent2:  #e0f5ec;
+  --red:      #d42020;
+  --red2:     #fde8e8;
+  --yellow:   #b06f00;
+  --blue:     #1a5ec7;
+  --orange:   #c45a00;
+  --border:   rgba(0,0,0,0.07);
+  --border2:  rgba(0,0,0,0.13);
+  --shadow:   0 2px 8px rgba(0,0,0,0.09);
+}
+
+html{font-size:15px}
+body{font-family:var(--sans);background:var(--bg);color:var(--txt);min-height:100vh;line-height:1.6;transition:background .18s,color .18s}
+
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:var(--txt4)}
+
+/* ── HEADER ── */
+header{background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50}
+.hdr{max-width:1380px;margin:0 auto;padding:0 20px;height:50px;display:flex;align-items:center;gap:20px}
+.logo{font-family:var(--display);font-size:16px;font-weight:800;color:var(--txt);text-decoration:none;letter-spacing:-.5px;white-space:nowrap}
+.logo em{color:var(--accent);font-style:normal}
+.logo .slash{color:var(--txt4);font-weight:400;margin:0 3px}
+.logo .sub{font-weight:500;color:var(--txt3)}
+.nav{display:flex;gap:1px;flex:1;overflow-x:auto}
+.nav::-webkit-scrollbar{display:none}
+.nav a{font-size:13px;color:var(--txt3);text-decoration:none;padding:5px 11px;border-radius:var(--r);white-space:nowrap;transition:color .12s,background .12s}
+.nav a:hover{color:var(--txt2);background:var(--bg3)}
+.nav a.on{color:var(--accent);background:var(--accent2);font-weight:500}
+.hdr-r{margin-left:auto;display:flex;gap:8px;align-items:center;flex-shrink:0}
+.icon-btn{width:33px;height:33px;border-radius:var(--r);border:1px solid var(--border2);background:var(--bg3);color:var(--txt3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;flex-shrink:0}
+.icon-btn:hover{background:var(--bg4);color:var(--txt)}
+.icon-btn svg{width:15px;height:15px;pointer-events:none}
+
+/* ── AD STRIP ── */
+.ad-strip{background:var(--bg2);border-bottom:1px solid var(--border);padding:6px 20px;display:flex;justify-content:center;align-items:center;min-height:106px}
+
+/* ── PAGE LAYOUT ── */
+.page{max-width:1380px;margin:0 auto;padding:22px 20px 52px;display:grid;grid-template-columns:1fr 308px;gap:22px;align-items:start}
+.main{display:flex;flex-direction:column;gap:14px;min-width:0}
+.side{display:flex;flex-direction:column;gap:18px;position:sticky;top:68px}
+
+/* ── TITLE ── */
+.title-row h1{font-family:var(--display);font-size:21px;font-weight:700;letter-spacing:-.5px;line-height:1.25}
+.title-row p{font-size:13px;color:var(--txt3);margin-top:3px}
+.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.tag{font-size:10.5px;font-weight:500;font-family:var(--mono);padding:2px 8px;border-radius:99px;border:1px solid var(--border2);color:var(--txt4);background:var(--bg3);letter-spacing:.3px;white-space:nowrap}
+.tag.hi{border-color:var(--accent);color:var(--accent);background:var(--accent2)}
+
+/* ── MODE SELECTOR — big tabs ── */
+.mode-tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:4px;gap:3px}
+.mode-tab{font-family:var(--display);font-size:14px;font-weight:700;letter-spacing:-.2px;padding:11px 20px;border-radius:var(--r);border:none;cursor:pointer;transition:all .15s;color:var(--txt3);background:none;display:flex;align-items:center;justify-content:center;gap:8px}
+.mode-tab .mt-icon{font-size:16px}
+.mode-tab:hover{color:var(--txt2);background:var(--bg3)}
+.mode-tab.on{background:var(--accent);color:#000;font-weight:700}
+body.light .mode-tab.on{background:var(--accent);color:#fff}
+
+/* ── TOOLBAR ── */
+.toolbar{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:9px 13px;display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.tg{display:flex;align-items:center;gap:7px}
+.tlabel{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.9px;color:var(--txt4);white-space:nowrap}
+.seg{display:flex;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:2px;gap:1px}
+.sb{font-size:11.5px;font-family:var(--mono);font-weight:500;color:var(--txt3);background:none;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;transition:all .12s;white-space:nowrap}
+.sb:hover{color:var(--txt2);background:var(--bg4)}
+.sb.on{background:var(--bg2);color:var(--txt);box-shadow:0 1px 4px rgba(0,0,0,.35)}
+body.light .sb.on{box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.tsep{width:1px;height:20px;background:var(--border2);flex-shrink:0}
+.tright{margin-left:auto;display:flex;align-items:center;gap:5px}
+.kbd{font-family:var(--mono);font-size:10px;padding:1px 5px;border-radius:3px;background:var(--bg4);border:1px solid var(--border2);color:var(--txt4)}
+.tsel{font-size:12px;font-family:var(--mono);background:var(--bg3);border:1px solid var(--border);color:var(--txt2);border-radius:var(--r);padding:5px 9px;cursor:pointer;outline:none;transition:border-color .12s}
+.tsel:hover,.tsel:focus{border-color:var(--border2)}
+.tsel option{background:var(--bg2)}
+
+/* ── EDITOR SHELL ── */
+.shell{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;box-shadow:var(--shadow)}
+.panes{display:grid;grid-template-columns:1fr 1fr}
+.pane{display:flex;flex-direction:column}
+.pane:first-child{border-right:1px solid var(--border)}
+.pbar{display:flex;align-items:center;gap:9px;padding:7px 13px;border-bottom:1px solid var(--border);background:var(--bg3);min-height:37px;flex-wrap:wrap}
+.ptitle{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.9px;color:var(--txt4)}
+.pacts{display:flex;gap:5px;margin-left:auto}
+.pbtn{font-size:11px;font-family:var(--mono);color:var(--txt3);background:none;border:1px solid var(--border2);border-radius:4px;padding:3px 9px;cursor:pointer;transition:all .12s;white-space:nowrap}
+.pbtn:hover{color:var(--txt2);background:var(--bg4)}
+.pbtn.hi{color:var(--accent);border-color:var(--accent2)}
+.pbtn.hi:hover{background:var(--accent2)}
+.upload-wrap{position:relative;overflow:hidden;display:inline-flex}
+.upload-wrap input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0}
+
+textarea.ptext{flex:1;width:100%;min-height:320px;font-family:var(--mono);font-size:13px;line-height:1.68;padding:15px;border:none;resize:none;outline:none;background:var(--bg2);color:var(--txt);tab-size:2;transition:background .15s;display:block}
+textarea.ptext::placeholder{color:var(--txt4)}
+textarea.ptext:focus{background:var(--bg)}
+textarea.ptext.dragover{outline:2px solid var(--accent);outline-offset:-2px}
+
+.out-area{flex:1;min-height:320px;font-family:var(--mono);font-size:13px;line-height:1.68;padding:15px;overflow:auto;white-space:pre-wrap;word-break:break-all;background:var(--bg2);color:var(--txt);user-select:text}
+.out-ph{color:var(--txt4);font-style:italic}
+.out-val{color:var(--accent)}
+.out-err{color:var(--red)}
+
+/* ── STATUS BAR ── */
+.sbar{padding:7px 13px;border-top:1px solid var(--border);background:var(--bg3);display:flex;align-items:center;gap:11px;font-size:11.5px;min-height:34px;flex-wrap:wrap}
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--txt4);flex-shrink:0;transition:background .15s}
+.sdot.ok {background:var(--accent);box-shadow:0 0 7px var(--accent)}
+.sdot.err{background:var(--red);   box-shadow:0 0 7px var(--red)}
+.smsg{font-family:var(--mono);font-size:11.5px;color:var(--txt3)}
+.smsg.ok {color:var(--accent)}
+.smsg.err{color:var(--red)}
+.sstats{margin-left:auto;display:flex;gap:14px;font-size:11px;font-family:var(--mono);color:var(--txt4)}
+.sstats span{color:var(--txt3)}
+
+/* ── ACTION BUTTONS ── */
+.actions{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.btn{font-family:var(--sans);font-size:13px;font-weight:500;padding:8px 17px;border-radius:var(--r);border:1px solid transparent;cursor:pointer;transition:all .13s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;line-height:1}
+.btn svg{width:13px;height:13px;flex-shrink:0}
+.btn-p{background:var(--accent);color:#000;border-color:var(--accent);font-weight:700}
+.btn-p:hover{filter:brightness(1.12)}
+.btn-p2{background:var(--blue);color:#000;border-color:var(--blue);font-weight:700}
+body.light .btn-p2{color:#fff}
+.btn-p2:hover{filter:brightness(1.1)}
+.btn-s{background:var(--bg3);color:var(--txt2);border-color:var(--border2)}
+.btn-s:hover{background:var(--bg4);color:var(--txt)}
+.btn-g{background:none;color:var(--txt3);border-color:var(--border)}
+.btn-g:hover{background:var(--bg3);color:var(--txt2)}
+.btn-d{background:none;color:var(--red);border-color:rgba(255,68,68,.22)}
+.btn-d:hover{background:var(--red2)}
+.ml{margin-left:auto}
+
+/* ── STATS PANEL ── */
+.stats-shell{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.stats-hd{padding:9px 13px;border-bottom:1px solid var(--border);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.9px;color:var(--txt4);background:var(--bg3)}
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr)}
+.sc{padding:13px 15px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.sc:nth-child(4n){border-right:none}
+.sc:nth-last-child(-n+4){border-bottom:none}
+.sv{font-family:var(--display);font-size:20px;font-weight:700;color:var(--txt);line-height:1;margin-bottom:4px;word-break:break-all}
+.sl{font-size:10.5px;color:var(--txt4);text-transform:uppercase;letter-spacing:.5px}
+
+/* ── IMAGE PREVIEW ── */
+.img-preview{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.img-preview-hd{padding:9px 13px;border-bottom:1px solid var(--border);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.9px;color:var(--txt4);background:var(--bg3);display:flex;align-items:center;justify-content:space-between}
+.img-preview-body{padding:16px;display:flex;flex-direction:column;align-items:center;gap:12px;background:var(--bg3)}
+.img-preview-body img{max-width:100%;max-height:300px;border-radius:var(--r);border:1px solid var(--border);object-fit:contain}
+.img-uri-note{font-size:12px;font-family:var(--mono);color:var(--txt3);text-align:center;word-break:break-all;padding:8px 12px;background:var(--bg2);border-radius:var(--r);border:1px solid var(--border);width:100%}
+
+/* ── DATA URI NOTE ── */
+.uri-strip{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:12px 15px;display:none;align-items:center;gap:10px;font-size:12px;font-family:var(--mono);color:var(--txt3)}
+.uri-strip.show{display:flex}
+.uri-strip .uri-type{color:var(--orange);font-weight:500}
+.uri-copy-btn{margin-left:auto;font-size:11px;font-family:var(--mono);color:var(--txt3);background:none;border:1px solid var(--border2);border-radius:4px;padding:3px 9px;cursor:pointer;transition:all .12s;white-space:nowrap;flex-shrink:0}
+.uri-copy-btn:hover{color:var(--accent);border-color:var(--accent2);background:var(--accent2)}
+
+/* ── SIDEBAR PANELS ── */
+.sp{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.sphd{padding:9px 13px;border-bottom:1px solid var(--border);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.9px;color:var(--txt4);background:var(--bg3)}
+.tlist{padding:5px 0}
+.titem{display:flex;align-items:center;gap:9px;padding:7px 13px;font-size:13px;color:var(--txt2);text-decoration:none;transition:background .1s}
+.titem:hover{background:var(--bg3);color:var(--txt)}
+.titem.on{background:var(--accent2);color:var(--accent)}
+.titem .ic{font-size:13px;width:20px;text-align:center;flex-shrink:0;font-style:normal}
+.soon{font-size:10px;font-family:var(--mono);padding:1px 6px;background:var(--bg4);color:var(--txt4);border-radius:99px;margin-left:auto;border:1px solid var(--border)}
+
+/* ── USE CASES GRID ── */
+.use-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.use-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:13px 14px}
+.use-icon{font-size:20px;margin-bottom:6px}
+.use-title{font-size:13px;font-weight:600;margin-bottom:3px;color:var(--txt)}
+.use-desc{font-size:12px;color:var(--txt3);line-height:1.6}
+
+/* ── SEO BLOCK ── */
+.seo{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:24px}
+.seo h2{font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:-.3px;margin-bottom:10px}
+.seo p{font-size:13.5px;color:var(--txt2);line-height:1.78;margin-bottom:10px}
+.seo strong{color:var(--txt);font-weight:600}
+.faq{margin-top:18px;display:flex;flex-direction:column;gap:0}
+.fi{border-top:1px solid var(--border);padding:14px 0 2px}
+.fq{font-size:14px;font-weight:600;margin-bottom:5px}
+.fa{font-size:13px;color:var(--txt2);line-height:1.72}
+.fa code{font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 5px;border-radius:3px;color:var(--accent)}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:16px 20px;background:var(--bg2)}
+.fi2{max-width:1380px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.flinks{display:flex;gap:3px}
+.flinks a{color:var(--txt4);text-decoration:none;padding:3px 8px;border-radius:var(--r);font-size:12.5px;transition:color .12s}
+.flinks a:hover{color:var(--txt3)}
+.fcopy{color:var(--txt4);font-size:12px}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--bg4);border:1px solid var(--border2);color:var(--txt);font-size:12.5px;padding:8px 18px;border-radius:99px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:all .2s;white-space:nowrap;z-index:9999;font-family:var(--mono)}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:980px){
+  .page{grid-template-columns:1fr}
+  .side{position:static}
+  .sgrid{grid-template-columns:repeat(2,1fr)}
+  .sc:nth-child(2n){border-right:none}
+  .sc:nth-last-child(-n+2){border-bottom:none}
+  .sc:nth-child(2n-1){border-right:1px solid var(--border)}
+  .use-grid{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .panes{grid-template-columns:1fr}
+  .pane:first-child{border-right:none;border-bottom:1px solid var(--border)}
+  .nav{display:none}
+  .tsep{display:none}
+  .sgrid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="hdr">
+    <a href="https://kafinder.com" class="logo">ka<em>finder</em><span class="slash">/</span><span class="sub">devtools</span></a>
+    <nav class="nav">
+      <a href="/devtools/json-formatter">JSON</a>
+      <a href="/devtools/base64" class="on">Base64</a>
+      <!-- <a href="/devtools/url-encode">URL Encode</a>
+      <a href="/devtools/jwt">JWT</a>
+      <a href="/devtools/regex">Regex</a>
+      <a href="/devtools/timestamp">Timestamp</a>
+      <a href="/devtools" style="margin-left:4px">All tools →</a> -->
+    </nav>
+    <div class="hdr-r">
+      <button class="icon-btn" id="themeBtn" title="Toggle theme">
+        <svg id="imoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="isun" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- TOP AD — Leaderboard 728×90 -->
+<div class="ad-strip">
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:728px;height:90px"
+       data-ad-client="ca-pub-6683900073553699"
+       data-ad-slot="auto"></ins>
+  <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+</div>
+
+<div class="page">
+<main class="main">
+
+  <!-- TITLE -->
+  <div class="title-row">
+    <h1>Base64 Encoder &amp; Decoder</h1>
+    <p>Encode text or files to Base64, decode Base64 strings back. Supports images, URL-safe mode &amp; data URIs.</p>
+    <div class="tags">
+      <span class="tag hi" id="mode-tag">Encode mode</span>
+      <span class="tag" id="charset-tag">UTF-8</span>
+      <span class="tag" id="urlsafe-tag">Standard</span>
+      <span class="tag">100% in-browser</span>
+      <span class="tag">Free forever</span>
+    </div>
+  </div>
+
+  <!-- MODE SELECTOR -->
+  <div class="mode-tabs">
+    <button class="mode-tab on" id="tab-enc" onclick="setMode('encode')">
+      <span class="mt-icon">→</span> Encode  <span style="font-size:11px;font-weight:400;opacity:.6;font-family:var(--mono)">Text → Base64</span>
+    </button>
+    <button class="mode-tab" id="tab-dec" onclick="setMode('decode')">
+      <span class="mt-icon">←</span> Decode  <span style="font-size:11px;font-weight:400;opacity:.6;font-family:var(--mono)">Base64 → Text</span>
+    </button>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="tg">
+      <span class="tlabel">Charset</span>
+      <div class="seg" id="charset-ctrl">
+        <button class="sb on" data-v="utf8">UTF-8</button>
+        <button class="sb" data-v="ascii">ASCII</button>
+        <button class="sb" data-v="latin1">Latin-1</button>
+      </div>
+    </div>
+    <div class="tsep"></div>
+    <div class="tg">
+      <span class="tlabel">Variant</span>
+      <div class="seg" id="variant-ctrl">
+        <button class="sb on" data-v="std">Standard</button>
+        <button class="sb" data-v="url">URL-safe</button>
+        <button class="sb" data-v="mime">MIME (76-char lines)</button>
+      </div>
+    </div>
+    <div class="tsep"></div>
+    <div class="tg" id="wrap-group">
+      <span class="tlabel">Line wrap</span>
+      <select class="tsel" id="wrap-sel">
+        <option value="0">None</option>
+        <option value="64">64 chars</option>
+        <option value="76" selected>76 chars</option>
+        <option value="80">80 chars</option>
+      </select>
+    </div>
+    <div class="tright">
+      <kbd class="kbd">Ctrl</kbd>+<kbd class="kbd">Enter</kbd>
+    </div>
+  </div>
+
+  <!-- EDITOR -->
+  <div class="shell">
+    <div class="panes">
+      <!-- Input -->
+      <div class="pane">
+        <div class="pbar">
+          <span class="ptitle" id="in-ptitle">Plain Text</span>
+          <div class="pacts">
+            <button class="pbtn" id="btn-paste">Paste</button>
+            <div class="upload-wrap">
+              <button class="pbtn">Upload file</button>
+              <input type="file" id="file-in" accept="*/*">
+            </div>
+            <button class="pbtn" id="btn-clr-in">Clear</button>
+          </div>
+        </div>
+        <textarea class="ptext" id="inp" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"
+          placeholder="Type or paste text to encode…"></textarea>
+      </div>
+
+      <!-- Output -->
+      <div class="pane">
+        <div class="pbar">
+          <span class="ptitle" id="out-ptitle">Base64 Output</span>
+          <div class="pacts">
+            <button class="pbtn hi" id="btn-copy">Copy</button>
+            <button class="pbtn" id="btn-dl">Download</button>
+            <button class="pbtn" id="btn-swap">⇄ Swap</button>
+          </div>
+        </div>
+        <div class="out-area" id="out"><span class="out-ph">Encoded output appears here…</span></div>
+      </div>
+    </div>
+
+    <!-- Status -->
+    <div class="sbar">
+      <div class="sdot" id="sdot"></div>
+      <span class="smsg" id="smsg">Ready — type, paste or upload</span>
+      <div class="sstats" id="sstats" style="display:none">
+        In: <span id="st-in">—</span> &nbsp;→&nbsp; Out: <span id="st-out">—</span> &nbsp;·&nbsp; Ratio: <span id="st-ratio">—</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATA URI STRIP (shown for image files) -->
+  <div class="uri-strip" id="uri-strip">
+    <span>Data URI ready:</span>
+    <span class="uri-type" id="uri-mime">—</span>
+    <button class="uri-copy-btn" id="btn-copy-uri">Copy data URI</button>
+  </div>
+
+  <!-- ACTION BUTTONS -->
+  <div class="actions">
+    <button class="btn btn-p" id="btn-enc">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Encode
+    </button>
+    <button class="btn btn-p2" id="btn-dec">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Decode
+    </button>
+    <button class="btn btn-s" id="btn-swap2">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+      Swap input/output
+    </button>
+    <button class="btn btn-s" id="btn-share">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      Share URL
+    </button>
+    <button class="btn btn-d ml" id="btn-clr-all">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+      Clear all
+    </button>
+  </div>
+
+  <!-- STATS PANEL -->
+  <div class="stats-shell" id="stats-panel" style="display:none">
+    <div class="stats-hd">Encoding Statistics</div>
+    <div class="sgrid">
+      <div class="sc"><div class="sv" id="s-in">—</div><div class="sl">Input size</div></div>
+      <div class="sc"><div class="sv" id="s-out">—</div><div class="sl">Output size</div></div>
+      <div class="sc"><div class="sv" id="s-ratio">—</div><div class="sl">Size increase</div></div>
+      <div class="sc"><div class="sv" id="s-pad">—</div><div class="sl">Padding (=)</div></div>
+    </div>
+  </div>
+
+  <!-- IMAGE PREVIEW (shown when image file uploaded) -->
+  <div class="img-preview" id="img-preview" style="display:none">
+    <div class="img-preview-hd">
+      <span>Image Preview</span>
+      <button class="pbtn hi" id="btn-copy-datauri" style="font-size:11px">Copy data URI</button>
+    </div>
+    <div class="img-preview-body">
+      <img id="preview-img" src="" alt="Preview">
+      <div class="img-uri-note" id="uri-note">Loading…</div>
+    </div>
+  </div>
+
+  <!-- USE CASES -->
+  <div class="seo" style="padding-bottom:20px">
+    <h2>Common Use Cases</h2>
+    <p>Base64 encoding is used throughout web development and APIs. Here are the most common scenarios.</p>
+    <div class="use-grid">
+      <div class="use-card">
+        <div class="use-icon">🖼️</div>
+        <div class="use-title">Embed images in HTML/CSS</div>
+        <div class="use-desc">Convert images to data URIs (<code style="font-family:var(--mono);font-size:11px;color:var(--accent)">data:image/png;base64,…</code>) to inline them in HTML or CSS without extra HTTP requests.</div>
+      </div>
+      <div class="use-card">
+        <div class="use-icon">🔑</div>
+        <div class="use-title">HTTP Basic Authentication</div>
+        <div class="use-desc">Basic Auth headers encode <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">username:password</code> as Base64 in the <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">Authorization</code> header.</div>
+      </div>
+      <div class="use-card">
+        <div class="use-icon">📨</div>
+        <div class="use-title">Email attachments (MIME)</div>
+        <div class="use-desc">SMTP email attachments are Base64 encoded using 76-character line-wrapped MIME format as defined in RFC 2045.</div>
+      </div>
+      <div class="use-card">
+        <div class="use-icon">🔐</div>
+        <div class="use-title">JWT tokens</div>
+        <div class="use-desc">JSON Web Tokens use URL-safe Base64 (<code style="font-family:var(--mono);font-size:11px;color:var(--accent)">-</code> and <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">_</code> instead of <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">+</code>/<code style="font-family:var(--mono);font-size:11px;color:var(--accent)">/</code>) for the header, payload and signature segments.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEO CONTENT + FAQ -->
+  <div class="seo">
+    <h2>Free Online Base64 Encoder &amp; Decoder</h2>
+    <p>KaFinder's Base64 tool handles both encoding and decoding in your browser — no server involved. Upload any file (image, PDF, binary) and get its Base64 string instantly. Switch to <strong>URL-safe mode</strong> (RFC 4648 §5) to get output safe for URLs and filenames. Use <strong>MIME mode</strong> for 76-character line-wrapped output compatible with email protocols.</p>
+    <p>Supports <strong>UTF-8</strong>, <strong>ASCII</strong>, and <strong>Latin-1</strong> text encodings. When you upload an image, the tool also generates a ready-to-use <strong>data URI</strong> you can paste directly into HTML <code>src</code> attributes or CSS <code>background-image</code> properties.</p>
+    <div class="faq">
+      <div class="fi">
+        <div class="fq">What is Base64 encoding?</div>
+        <div class="fa">Base64 is a binary-to-text encoding scheme using 64 ASCII characters (A–Z, a–z, 0–9, <code>+</code>, <code>/</code>) plus <code>=</code> for padding. It converts arbitrary binary data into a string safe for transmission over systems that only handle ASCII text, such as email and JSON.</div>
+      </div>
+      <div class="fi">
+        <div class="fq">Why does Base64 output end with = or ==?</div>
+        <div class="fa">Base64 encodes 3 bytes at a time into 4 characters. When the input length is not divisible by 3, padding characters (<code>=</code>) are appended to make the output length a multiple of 4. One <code>=</code> means 2 remaining bytes; <code>==</code> means 1 remaining byte.</div>
+      </div>
+      <div class="fi">
+        <div class="fq">What is URL-safe Base64?</div>
+        <div class="fa">Standard Base64 uses <code>+</code> and <code>/</code> which have special meaning in URLs. URL-safe Base64 (RFC 4648 §5) replaces these with <code>-</code> and <code>_</code> so the output can be used in URLs, filenames, and JWT tokens without percent-encoding.</div>
+      </div>
+      <div class="fi">
+        <div class="fq">What is MIME Base64?</div>
+        <div class="fa">MIME Base64 (RFC 2045) is identical to standard Base64 but wraps output at 76 characters per line with CRLF line endings. This format is required by email protocols (SMTP) for attachments and message bodies.</div>
+      </div>
+      <div class="fi">
+        <div class="fq">Can I encode binary files, not just text?</div>
+        <div class="fa">Yes. Click <strong>Upload file</strong> to load any file type — images, PDFs, ZIPs. The tool reads it as binary using the FileReader API and encodes it to Base64 entirely in your browser. For images, it also generates a ready-to-embed data URI.</div>
+      </div>
+      <div class="fi">
+        <div class="fq">Is my data safe?</div>
+        <div class="fa">Completely. All encoding and decoding runs in JavaScript in your browser. No data is ever sent to KaFinder's servers. Files you upload are read locally via the browser's FileReader API.</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- SIDEBAR -->
+<aside class="side">
+
+  <!-- Rectangle Ad 300×250 -->
+  <div class="sp">
+    <ins class="adsbygoogle"
+         style="display:block;width:300px;height:250px"
+         data-ad-client="ca-pub-6683900073553699"
+         data-ad-slot="auto"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Tools list -->
+  <div class="sp">
+    <div class="sphd">DevTools Suite</div>
+    <div class="tlist">
+      <a href="/devtools/json-formatter" class="titem"><i class="ic">{}</i> JSON Formatter</a>
+      <a href="/devtools/base64"         class="titem on"><i class="ic">64</i> Base64 Encode/Decode</a>
+      <a href=""     class="titem"><i class="ic">%</i> URL Encoder <span class="soon">soon</span></a>
+      <a href=""            class="titem"><i class="ic">🔑</i> JWT Decoder <span class="soon">soon</span></a>
+      <a href=""          class="titem"><i class="ic">.*</i> Regex Tester <span class="soon">soon</span></a>
+      <a href=""      class="titem"><i class="ic">⏱</i> Timestamp Conv. <span class="soon">soon</span></a>
+      <a href=""           class="titem"><i class="ic">±</i> Diff Checker <span class="soon">soon</span></a>
+      <a href=""           class="titem"><i class="ic">#</i> UUID Generator <span class="soon">soon</span></a>
+      <a href=""          class="titem"><i class="ic">◉</i> Color Converter <span class="soon">soon</span></a>
+    </div>
+  </div>
+
+  <!-- Half-page ad 300×600 -->
+  <div class="sp">
+    <ins class="adsbygoogle"
+         style="display:block;width:300px;height:600px"
+         data-ad-client="ca-pub-6683900073553699"
+         data-ad-slot="auto"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+</aside>
+</div>
+
+<footer>
+  <div class="fi2">
+    <a href="https://kafinder.com" class="logo" style="font-size:15px">ka<em>finder</em></a>
+    <div class="flinks">
+      <a href="/devtools">DevTools</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/contact">Contact</a>
+    </div>
+    <div class="fcopy">© 2025 KaFinder · All processing in-browser · No data collected</div>
+  </div>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+/* ══════════════════════════════════════════
+   KAFINDER — BASE64 ENCODER/DECODER v1.0
+   ══════════════════════════════════════════ */
+const G = id => document.getElementById(id);
+
+let mode      = 'encode';  // 'encode' | 'decode'
+let charset   = 'utf8';    // 'utf8' | 'ascii' | 'latin1'
+let variant   = 'std';     // 'std' | 'url' | 'mime'
+let lineWrap  = 76;
+let lastFileDataUri = null; // for image preview
+
+const inEl   = G('inp');
+const outEl  = G('out');
+const sdot   = G('sdot');
+const smsg   = G('smsg');
+const sstats = G('sstats');
+const statsP = G('stats-panel');
+
+/* ── Theme ─────────────────────────────── */
+if (localStorage.getItem('kf-t') === 'light') setLight();
+function setLight(){ document.body.classList.add('light'); G('imoon').style.display='none'; G('isun').style.display=''; }
+function setDark (){ document.body.classList.remove('light'); G('imoon').style.display=''; G('isun').style.display='none'; }
+G('themeBtn').onclick = () => {
+  const l = document.body.classList.contains('light');
+  l ? (setDark(), localStorage.setItem('kf-t','dark')) : (setLight(), localStorage.setItem('kf-t','light'));
+};
+
+/* ── Mode ────────────────────────────────── */
+function setMode(m) {
+  mode = m;
+  const enc = m === 'encode';
+  G('tab-enc').classList.toggle('on', enc);
+  G('tab-dec').classList.toggle('on', !enc);
+  G('in-ptitle').textContent  = enc ? 'Plain Text'    : 'Base64 Input';
+  G('out-ptitle').textContent = enc ? 'Base64 Output' : 'Decoded Text';
+  G('mode-tag').textContent   = enc ? 'Encode mode'   : 'Decode mode';
+  inEl.placeholder = enc ? 'Type or paste text to encode…' : 'Paste Base64 string to decode…';
+  G('btn-enc').style.opacity = enc ? '1' : '0.4';
+  G('btn-dec').style.opacity = enc ? '0.4' : '1';
+  // re-run if content present
+  if (inEl.value.trim()) doProcess();
+}
+
+/* ── Charset ────────────────────────────── */
+G('charset-ctrl').addEventListener('click', e => {
+  const b = e.target.closest('.sb'); if (!b) return;
+  G('charset-ctrl').querySelectorAll('.sb').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); charset = b.dataset.v;
+  G('charset-tag').textContent = {utf8:'UTF-8',ascii:'ASCII',latin1:'Latin-1'}[charset];
+  if (inEl.value.trim()) doProcess();
+});
+
+/* ── Variant ────────────────────────────── */
+G('variant-ctrl').addEventListener('click', e => {
+  const b = e.target.closest('.sb'); if (!b) return;
+  G('variant-ctrl').querySelectorAll('.sb').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); variant = b.dataset.v;
+  G('urlsafe-tag').textContent = {std:'Standard',url:'URL-safe',mime:'MIME'}[variant];
+  const showWrap = variant === 'std' || variant === 'mime';
+  G('wrap-group').style.opacity = showWrap ? '1' : '0.4';
+  if (inEl.value.trim()) doProcess();
+});
+
+/* ── Line wrap select ───────────────────── */
+G('wrap-sel').onchange = e => { lineWrap = parseInt(e.target.value); if (inEl.value.trim()) doProcess(); };
+
+/* ── Core encode/decode ─────────────────── */
+function encodeText(str) {
+  let bytes;
+  if (charset === 'utf8') {
+    bytes = new TextEncoder().encode(str);
+  } else if (charset === 'latin1') {
+    bytes = new Uint8Array(str.length);
+    for (let i=0;i<str.length;i++) bytes[i]=str.charCodeAt(i)&0xff;
+  } else { // ascii
+    bytes = new Uint8Array(str.length);
+    for (let i=0;i<str.length;i++) bytes[i]=str.charCodeAt(i)&0x7f;
+  }
+  return bytesToBase64(bytes);
+}
+
+function bytesToBase64(bytes) {
+  // Build standard base64 from Uint8Array
+  let bin = '';
+  bytes.forEach(b => bin += String.fromCharCode(b));
+  let b64 = btoa(bin);
+
+  if (variant === 'url') {
+    b64 = b64.replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+  } else if (variant === 'mime') {
+    b64 = wrapLines(b64, 76);
+  } else if (lineWrap > 0) {
+    b64 = wrapLines(b64, lineWrap);
+  }
+  return b64;
+}
+
+function decodeBase64(b64) {
+  // Normalize: URL-safe → standard
+  let s = b64.replace(/-/g,'+').replace(/_/g,'/').replace(/\s/g,'');
+  // Add padding if needed
+  while (s.length % 4) s += '=';
+  const bin = atob(s);
+  if (charset === 'utf8') {
+    const bytes = new Uint8Array(bin.length);
+    for (let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+    return new TextDecoder('utf-8').decode(bytes);
+  }
+  return bin;
+}
+
+function wrapLines(s, w) {
+  if (!w) return s;
+  const chunks = [];
+  for (let i=0;i<s.length;i+=w) chunks.push(s.slice(i,i+w));
+  return chunks.join('\n');
+}
+
+/* ── Main process ────────────────────────── */
+function doProcess() {
+  const raw = inEl.value;
+  if (!raw.trim()) { resetUI(); return; }
+  try {
+    let result;
+    if (mode === 'encode') {
+      result = encodeText(raw);
+    } else {
+      result = decodeBase64(raw);
+    }
+    // Display
+    outEl.textContent = '';
+    const span = document.createElement('span');
+    span.className = 'out-val';
+    span.textContent = result;
+    outEl.appendChild(span);
+
+    // Status
+    const inSz  = fmtBytes(new TextEncoder().encode(raw).length);
+    const outSz = fmtBytes(new TextEncoder().encode(result).length);
+    const ratio = ((new TextEncoder().encode(result).length / Math.max(1, new TextEncoder().encode(raw).length)) * 100 - 100).toFixed(0);
+
+    setOk(mode==='encode' ? '✓ Encoded successfully' : '✓ Decoded successfully');
+    sstats.style.display = '';
+    G('st-in').textContent    = inSz;
+    G('st-out').textContent   = outSz;
+    G('st-ratio').textContent = (ratio >= 0 ? '+' : '') + ratio + '%';
+
+    // Stats panel
+    const inB  = new TextEncoder().encode(raw).length;
+    const outB = new TextEncoder().encode(result).length;
+    const padCount = (result.match(/=/g)||[]).length;
+    G('s-in').textContent    = fmtBytes(inB);
+    G('s-out').textContent   = fmtBytes(outB);
+    G('s-ratio').textContent = mode==='encode' ? '+' + ((outB/Math.max(1,inB)*100)-100).toFixed(0)+'%' : '-'+((1-inB/Math.max(1,outB))*100).toFixed(0)+'%';
+    G('s-pad').textContent   = padCount + (padCount===1?' char':' chars');
+    statsP.style.display = '';
+
+  } catch(e) {
+    setErr('✗ ' + e.message.replace(/^[A-Za-z]*Error:\s*/,'').substring(0,120));
+    outEl.innerHTML = '<span class="out-err">Error: ' + esc(e.message) + '</span>';
+    statsP.style.display='none'; sstats.style.display='none';
+  }
+}
+
+function doEncode(){ setMode('encode'); doProcess(); }
+function doDecode(){ setMode('decode'); doProcess(); }
+
+function setOk(msg){ sdot.className='sdot ok'; smsg.className='smsg ok'; smsg.textContent=msg; }
+function setErr(msg){ sdot.className='sdot err'; smsg.className='smsg err'; smsg.textContent=msg; }
+
+function resetUI(){
+  outEl.innerHTML='<span class="out-ph">Encoded output appears here…</span>';
+  sdot.className='sdot'; smsg.className='smsg'; smsg.textContent='Ready — type, paste or upload';
+  sstats.style.display='none'; statsP.style.display='none';
+  G('uri-strip').classList.remove('show');
+  G('img-preview').style.display='none';
+  lastFileDataUri=null;
+}
+
+/* ── File upload ─────────────────────────── */
+G('file-in').onchange = e => {
+  const f = e.target.files[0]; if (!f) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const arrayBuf = ev.target.result;
+    const bytes    = new Uint8Array(arrayBuf);
+    const b64      = bytesToBase64(bytes);
+    inEl.value     = `[Binary file: ${f.name} — ${fmtBytes(f.size)}]`;
+
+    outEl.textContent = '';
+    const span = document.createElement('span');
+    span.className = 'out-val';
+    span.textContent = b64;
+    outEl.appendChild(span);
+
+    setOk(`✓ Encoded ${f.name} (${fmtBytes(f.size)})`);
+    sstats.style.display = '';
+    const outB = new TextEncoder().encode(b64).length;
+    G('st-in').textContent    = fmtBytes(f.size);
+    G('st-out').textContent   = fmtBytes(outB);
+    G('st-ratio').textContent = '+' + ((outB/f.size*100)-100).toFixed(0)+'%';
+    G('s-in').textContent     = fmtBytes(f.size);
+    G('s-out').textContent    = fmtBytes(outB);
+    G('s-ratio').textContent  = '+' + ((outB/f.size*100)-100).toFixed(0)+'%';
+    G('s-pad').textContent    = (b64.match(/=/g)||[]).length + ' chars';
+    statsP.style.display      = '';
+
+    // Image preview
+    if (f.type.startsWith('image/')) {
+      const dataUri = `data:${f.type};base64,${bytesToBase64(bytes).replace(/\n/g,'')}`;
+      lastFileDataUri = dataUri;
+      G('preview-img').src = dataUri;
+      G('uri-note').textContent = `data:${f.type};base64,${b64.replace(/\n/g,'').substring(0,80)}…`;
+      G('img-preview').style.display = '';
+      G('uri-strip').classList.add('show');
+      G('uri-mime').textContent = f.type;
+    }
+  };
+  reader.readAsArrayBuffer(f);
+  e.target.value='';
+};
+
+/* ── Drag & drop ─────────────────────────── */
+inEl.addEventListener('dragover', e=>{e.preventDefault();inEl.classList.add('dragover');});
+inEl.addEventListener('dragleave',()=>inEl.classList.remove('dragover'));
+inEl.addEventListener('drop',e=>{
+  e.preventDefault(); inEl.classList.remove('dragover');
+  const f=e.dataTransfer.files[0];
+  if(f){ G('file-in').dispatchEvent(Object.assign(new Event('change'),{target:{files:[f]}})); }
+  else { const t=e.dataTransfer.getData('text'); if(t){inEl.value=t;doProcess();} }
+});
+
+/* ── Button handlers ─────────────────────── */
+G('btn-enc').onclick = doEncode;
+G('btn-dec').onclick = doDecode;
+G('btn-paste').onclick = async () => {
+  try { const t=await navigator.clipboard.readText(); inEl.value=t; doProcess(); toast('Pasted'); }
+  catch(e){ toast('Clipboard access denied'); }
+};
+G('btn-copy').onclick = async () => {
+  const t=outEl.textContent; if(!t||t.includes('appears here')) return;
+  try { await navigator.clipboard.writeText(t); toast('Copied!'); }
+  catch(e){ toast('Copy failed'); }
+};
+G('btn-dl').onclick = () => {
+  const t=outEl.textContent; if(!t||t.includes('appears here')) return;
+  const ext = mode==='encode' ? '.b64.txt' : '.decoded.txt';
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([t],{type:'text/plain'}));
+  a.download='kafinder'+ext; a.click(); toast('Downloading…');
+};
+
+function doSwap() {
+  const outTxt = outEl.textContent;
+  if (!outTxt || outTxt.includes('appears here')) return;
+  inEl.value = outTxt;
+  mode = mode==='encode' ? 'decode' : 'encode';
+  setMode(mode);
+  toast('Swapped!');
+}
+G('btn-swap').onclick  = doSwap;
+G('btn-swap2').onclick = doSwap;
+
+G('btn-share').onclick = () => {
+  const raw = inEl.value.trim(); if(!raw) return;
+  try {
+    const enc = btoa(unescape(encodeURIComponent(raw)));
+    const url = `${location.origin}${location.pathname}?t=${encodeURIComponent(enc)}&m=${mode}`;
+    if(url.length>8000){toast('Input too large to share via URL');return;}
+    navigator.clipboard.writeText(url).then(()=>toast('Share URL copied!')).catch(()=>toast('URL ready'));
+  } catch(e){ toast('Could not generate URL'); }
+};
+
+G('btn-clr-in').onclick  = ()=>{ inEl.value=''; resetUI(); };
+G('btn-clr-all').onclick = ()=>{ inEl.value=''; resetUI(); };
+
+G('btn-copy-datauri').onclick = G('btn-copy-uri').onclick = async () => {
+  if(!lastFileDataUri){toast('No data URI available');return;}
+  try { await navigator.clipboard.writeText(lastFileDataUri); toast('Data URI copied!'); }
+  catch(e){ toast('Copy failed'); }
+};
+
+/* ── Auto-process (debounced) ────────────── */
+let dbt;
+inEl.addEventListener('input',()=>{
+  clearTimeout(dbt);
+  dbt=setTimeout(()=>{ inEl.value.trim() ? doProcess() : resetUI(); }, 400);
+});
+
+/* ── Keyboard shortcut ───────────────────── */
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();doProcess();}
+});
+
+/* ── Helpers ─────────────────────────────── */
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function fmtBytes(n){ return n<1024?n+' B':n<1048576?(n/1024).toFixed(1)+' KB':(n/1048576).toFixed(2)+' MB'; }
+
+/* ── Toast ───────────────────────────────── */
+function toast(m){
+  const t=G('toast'); t.textContent=m; t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'),2200);
+}
+
+/* ── Load from share URL ─────────────────── */
+(()=>{
+  const p=new URLSearchParams(location.search);
+  const t=p.get('t'), m=p.get('m');
+  if(!t) return;
+  try {
+    inEl.value=decodeURIComponent(escape(atob(decodeURIComponent(t))));
+    if(m==='decode') setMode('decode');
+    doProcess();
+    toast('Loaded from shared URL');
+  } catch(e){}
+})();
+</script>
+</body>
+</html>
