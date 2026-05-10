@@ -1,210 +1,793 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kafinder – India's Smartest Finder Tools</title>
+  <meta name="description" content="Kafinder offers free online finder and calculator tools built for India – GST rate finder, salary calculator, holiday finder, IFSC finder and more." />
+  <meta name="keywords" content="GST rate finder, salary calculator India, IFSC code finder, PIN code finder, free Indian tools" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Kafinder" />
+  <link rel="canonical" href="https://www.kafinder.com/" />
 
-<title>KaFinder DevTools – Developer Tools</title>
-<meta name="description" content="Fast, simple developer tools by KaFinder. Format, debug, and build better.">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Kafinder – India's Smartest Finder Tools" />
+  <meta property="og:description" content="Free online tools built for India. Find GST rates, calculate salary, look up IFSC codes and more." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.kafinder.com/" />
+  <meta property="og:image" content="https://www.kafinder.com/og-image.png" />
 
-<link rel="icon" href="https://kafinder.com/favicon.ico">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kafinder – India's Smartest Finder Tools" />
+  <meta name="twitter:description" content="Free online tools built for India. Find GST rates, salary, IFSC codes and more." />
 
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6683900073553699"
-     crossorigin="anonymous"></script>
-  
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Kafinder",
+    "url": "https://www.kafinder.com",
+    "description": "Free online finder and calculator tools built for India",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.kafinder.com/tools?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
 
-/* ===== DESIGN TOKENS (same as tool) ===== */
-:root{
-  --bg:#0d0d0f;
-  --bg2:#141416;
-  --bg3:#1c1c1f;
-  --txt:#eeeef2;
-  --txt2:#b2b2bc;
-  --txt3:#6c6c77;
-  --accent:#4fffb0;
-  --accent2:#162e22;
-  --border:rgba(255,255,255,0.08);
-  --r:8px;
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
 
-  --display:'Syne',sans-serif;
-  --sans:'DM Sans',sans-serif;
-}
+  <style>
+    :root {
+      --saffron:    #FF6B00;
+      --saffron-lt: #FF8C38;
+      --turmeric:   #F5A623;
+      --ivory:      #FDF6EC;
+      --cream:      #FAF0DC;
+      --bark:       #2C1A0E;
+      --bark-lt:    #5C3D1E;
+      --jade:       #1A6B4A;
+      --jade-lt:    #2A9467;
+      --sand:       #E8D5B0;
+      --muted:      #8C7B6B;
+      --white:      #FFFFFF;
+    }
 
-body{
-  background:var(--bg);
-  color:var(--txt);
-  font-family:var(--sans);
-}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ===== HEADER ===== */
-header{
-  background:var(--bg2);
-  border-bottom:1px solid var(--border);
-}
+    html { scroll-behavior: smooth; }
 
-.hdr{
-  max-width:1100px;
-  margin:auto;
-  padding:14px 20px;
-  display:flex;
-  align-items:center;
-}
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--ivory);
+      color: var(--bark);
+      overflow-x: hidden;
+    }
 
-.logo{
-  font-family:var(--display);
-  font-weight:700;
-  font-size:18px;
-  text-decoration:none;
-  color:var(--txt);
-}
+    /* ── MANDALA PATTERN BG ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(255,107,0,0.06) 0%, transparent 50%),
+        radial-gradient(circle at 85% 80%, rgba(26,107,74,0.05) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FF6B00' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
 
-.logo em{
-  color:var(--accent);
-  font-style:normal;
-}
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(253,246,236,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--sand);
+      padding: 0 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
 
-/* ===== HERO ===== */
-.hero{
-  max-width:900px;
-  margin:0 auto;
-  padding:80px 20px 60px;
-  text-align:center;
-}
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-mark {
+      width: 38px; height: 38px;
+      background: var(--saffron);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Yatra One', cursive;
+      color: white;
+      font-size: 18px;
+      box-shadow: 0 2px 8px rgba(255,107,0,0.3);
+    }
+    .logo-text {
+      font-family: 'Yatra One', cursive;
+      font-size: 22px;
+      color: var(--bark);
+      letter-spacing: 0.5px;
+    }
+    .logo-text span { color: var(--saffron); }
 
-.hero h1{
-  font-family:var(--display);
-  font-size:44px;
-  font-weight:700;
-  letter-spacing:-0.5px;
-  margin-bottom:16px;
-}
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--bark-lt);
+      font-size: 15px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--saffron); }
 
-.hero p{
-  font-size:16px;
-  color:var(--txt2);
-  line-height:1.7;
-  margin-bottom:32px;
-}
+    .nav-cta {
+      background: var(--saffron);
+      color: white !important;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+    .nav-cta:hover { background: var(--saffron-lt) !important; transform: translateY(-1px); }
 
-/* ===== CTA ===== */
-.btn{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:12px 22px;
-  border-radius:var(--r);
-  text-decoration:none;
-  font-size:14px;
-  font-weight:600;
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 5% 60px;
+      overflow: hidden;
+    }
 
-  background:var(--accent);
-  color:#000;
-  transition:.15s;
-}
+    .hero-motif {
+      position: absolute;
+      width: 560px; height: 560px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(255,107,0,0.15);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: spin 40s linear infinite;
+    }
+    .hero-motif::after {
+      content: '';
+      position: absolute;
+      inset: 30px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(26,107,74,0.12);
+      animation: spin 25s linear infinite reverse;
+    }
+    @keyframes spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
 
-.btn:hover{
-  transform:translateY(-2px);
-  filter:brightness(1.1);
-}
+    .hero-dots {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,107,0,0.15) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%);
+    }
 
-/* ===== FEATURES GRID ===== */
-.grid{
-  max-width:1100px;
-  margin:40px auto 80px;
-  padding:0 20px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:14px;
-}
+    .hero-content { position: relative; z-index: 2; max-width: 720px; }
 
-.card{
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-radius:var(--r);
-  padding:18px;
-  text-align:left;
-  transition:.15s;
-}
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--cream);
+      border: 1px solid var(--sand);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--bark-lt);
+      margin-bottom: 28px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .badge-dot {
+      width: 7px; height: 7px;
+      background: var(--jade);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
 
-.card:hover{
-  background:var(--bg3);
-  transform:translateY(-2px);
-}
+    h1 {
+      font-family: 'Yatra One', cursive;
+      font-size: clamp(40px, 6vw, 72px);
+      line-height: 1.1;
+      color: var(--bark);
+      margin-bottom: 24px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    h1 .accent { color: var(--saffron); }
+    h1 .accent-green { color: var(--jade); }
 
-.card h3{
-  font-size:14px;
-  margin-bottom:6px;
-}
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 19px);
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 44px;
+      font-weight: 300;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
 
-.card p{
-  font-size:13px;
-  color:var(--txt3);
-}
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
 
-/* ===== FOOTER ===== */
-footer{
-  border-top:1px solid var(--border);
-  padding:18px 20px;
-  text-align:center;
-  font-size:12px;
-  color:var(--txt3);
-}
+    .btn-primary {
+      background: var(--saffron);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(255,107,0,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,107,0,0.4); }
 
-/* ===== RESPONSIVE ===== */
-@media(max-width:600px){
-  .hero h1{font-size:32px}
-}
-</style>
+    .btn-secondary {
+      background: transparent;
+      color: var(--bark);
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1.5px solid var(--sand);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--saffron); color: var(--saffron); }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      position: relative; z-index: 1;
+      background: var(--bark);
+      padding: 20px 5%;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Yatra One', cursive;
+      font-size: 28px;
+      color: var(--turmeric);
+    }
+    .stat-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 2px;
+    }
+
+    /* ── FEATURED TOOLS ── */
+    .section {
+      position: relative; z-index: 1;
+      padding: 80px 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+    .section-tag {
+      display: inline-block;
+      background: rgba(255,107,0,0.08);
+      color: var(--saffron);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Yatra One', cursive;
+      font-size: clamp(28px, 4vw, 44px);
+      color: var(--bark);
+      margin-bottom: 14px;
+    }
+    .section-sub {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── TOOL CARDS ── */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .tool-card {
+      background: var(--white);
+      border: 1px solid var(--sand);
+      border-radius: 16px;
+      padding: 28px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--sand);
+      transition: background 0.25s;
+    }
+    .tool-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(44,26,14,0.1); border-color: rgba(255,107,0,0.3); }
+    .tool-card:hover::before { background: var(--saffron); }
+
+    .tool-icon {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      margin-bottom: 18px;
+    }
+    .icon-saffron { background: rgba(255,107,0,0.1); }
+    .icon-jade    { background: rgba(26,107,74,0.1); }
+    .icon-turmeric{ background: rgba(245,166,35,0.1); }
+
+    .tool-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--bark);
+    }
+    .tool-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+    .tool-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--saffron);
+    }
+    .tool-link svg { transition: transform 0.2s; }
+    .tool-card:hover .tool-link svg { transform: translateX(4px); }
+
+    .badge-live {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: rgba(26,107,74,0.1);
+      color: var(--jade);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+    .badge-soon {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: rgba(245,166,35,0.1);
+      color: var(--turmeric);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      position: relative; z-index: 1;
+      background: var(--bark);
+      padding: 80px 5%;
+    }
+    .how-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .how-section .section-tag { background: rgba(255,255,255,0.08); color: var(--turmeric); }
+    .how-section .section-title { color: var(--white); }
+    .how-section .section-sub { color: rgba(255,255,255,0.55); }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+      margin-top: 52px;
+    }
+    .step {
+      text-align: center;
+      padding: 0 16px;
+    }
+    .step-num {
+      width: 56px; height: 56px;
+      background: rgba(255,107,0,0.15);
+      border: 1px solid rgba(255,107,0,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Yatra One', cursive;
+      font-size: 22px;
+      color: var(--saffron);
+      margin: 0 auto 20px;
+    }
+    .step h4 {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .step p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+    }
+
+    /* ── CATEGORIES ── */
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 40px;
+    }
+    .cat-pill {
+      background: var(--white);
+      border: 1.5px solid var(--sand);
+      border-radius: 100px;
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--bark-lt);
+      text-decoration: none;
+      transition: all 0.2s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .cat-pill:hover { background: var(--saffron); color: white; border-color: var(--saffron); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative; z-index: 1;
+      background: var(--bark);
+      padding: 48px 5% 24px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-brand p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 12px;
+      max-width: 260px;
+      line-height: 1.6;
+    }
+    .footer-brand .logo-mark { background: rgba(255,107,0,0.15); }
+    .footer-brand .logo-text { color: white; }
+    .footer-col h5 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a {
+      text-decoration: none;
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--saffron); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-bottom p { font-size: 13px; color: rgba(255,255,255,0.3); }
+    .footer-bottom a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--saffron); }
+
+    /* ── DECORATIVE DIVIDER ── */
+    .divider {
+      text-align: center;
+      padding: 24px 0;
+      position: relative; z-index: 1;
+    }
+    .divider svg { color: var(--sand); }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .stats-bar { gap: 28px; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .footer-top { flex-direction: column; }
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-  <div class="hdr">
-    <a href="/" class="logo">ka<em>finder</em></a>
-  </div>
-</header>
-
-<section class="hero">
-  <h1>Developer tools that just work</h1>
-
-  <p>
-    Fast, minimal, and powerful utilities built for developers.<br>
-    Format, debug, and build better — all in one place.
-  </p>
-
-  <a href="/devtools/" class="btn">
-    Explore DevTools →
+<!-- ── NAV ── -->
+<nav aria-label="Main navigation">
+  <a href="/" class="logo" aria-label="Kafinder Home">
+    <div class="logo-mark" aria-hidden="true">क</div>
+    <span class="logo-text">Ka<span>finder</span></span>
   </a>
+  <ul class="nav-links">
+    <li><a href="/tools.html">All Tools</a></li>
+    <li><a href="/tools.html#finance">Finance</a></li>
+    <li><a href="/tools.html#govt">Government</a></li>
+    <li><a href="/tools.html">About</a></li>
+    <li><a href="/tools.html" class="nav-cta">Explore Tools →</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" aria-label="Hero section">
+  <div class="hero-dots" aria-hidden="true"></div>
+  <div class="hero-motif" aria-hidden="true"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot" aria-hidden="true"></span>
+      Free tools — No signup required
+    </div>
+    <h1>
+      Find Anything<br/>
+      <span class="accent">India</span> Needs to Know
+    </h1>
+    <p class="hero-sub">
+      Kafinder brings you simple, fast, and free tools designed for India —
+      from GST rates to salary calculators, holiday finders to IFSC lookups.
+      No clutter, no login. Just answers.
+    </p>
+    <div class="hero-actions">
+      <a href="/tools.html" class="btn-primary">Explore All Tools</a>
+      <a href="/gst-rate-finder.html" class="btn-secondary">Try GST Finder →</a>
+    </div>
+  </div>
 </section>
-<!-- 
-<section class="grid">
-  <div class="card">
-    <h3>JSON Formatter</h3>
-    <p>Validate, beautify, and analyze JSON instantly.</p>
+
+<!-- ── STATS ── -->
+<div class="stats-bar" aria-label="Site statistics">
+  <div class="stat-item">
+    <div class="stat-num">20+</div>
+    <div class="stat-label">Free Tools</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">1500+</div>
+    <div class="stat-label">GST Categories</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">28</div>
+    <div class="stat-label">States Covered</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Free Forever</div>
+  </div>
+</div>
+
+<!-- ── FEATURED TOOLS ── -->
+<main>
+<section class="section" aria-labelledby="tools-heading">
+  <div class="section-header">
+    <div class="section-tag">Popular Tools</div>
+    <h2 class="section-title" id="tools-heading">Most Used Kafinder Tools</h2>
+    <p class="section-sub">Quick access to the tools Indians search for every day</p>
   </div>
 
-  <div class="card">
-    <h3>Base64 Tools</h3>
-    <p>Encode and decode data quickly in your browser.</p>
+  <div class="tools-grid">
+
+    <a href="/gst-rate-finder.html" class="tool-card" aria-label="GST Rate Finder tool">
+      <span class="badge-live">Live</span>
+      <div class="tool-icon icon-saffron" aria-hidden="true">🧾</div>
+      <h3>GST Rate Finder</h3>
+      <p>Find the correct GST rate for any product or service instantly. Covers all HSN codes and SAC codes with CGST, SGST & IGST breakdown.</p>
+      <span class="tool-link">Use Tool <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a href="/tools.html" class="tool-card" aria-label="In-Hand Salary Calculator tool">
+      <span class="badge-soon">Coming Soon</span>
+      <div class="tool-icon icon-jade" aria-hidden="true">💰</div>
+      <h3>In-Hand Salary Finder</h3>
+      <p>Enter your CTC and find your actual take-home salary after PF, professional tax, HRA and income tax deductions.</p>
+      <span class="tool-link">Coming Soon <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a href="/tools.html" class="tool-card" aria-label="Auspicious Date Finder tool">
+      <span class="badge-soon">Coming Soon</span>
+      <div class="tool-icon icon-turmeric" aria-hidden="true">🪔</div>
+      <h3>Auspicious Date Finder</h3>
+      <p>Find Shubh Muhurat for marriage, griha pravesh, business launch and more. Filter by month, event type and regional calendar.</p>
+      <span class="tool-link">Coming Soon <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a href="/tools.html" class="tool-card" aria-label="Public Holiday Finder tool">
+      <span class="badge-soon">Coming Soon</span>
+      <div class="tool-icon icon-jade" aria-hidden="true">📅</div>
+      <h3>Holiday Finder</h3>
+      <p>Find public holidays by state, month, and type. Know exactly which gazetted holidays apply in your region for 2025 & 2026.</p>
+      <span class="tool-link">Coming Soon <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a href="/tools.html" class="tool-card" aria-label="IFSC Code Finder tool">
+      <span class="badge-soon">Coming Soon</span>
+      <div class="tool-icon icon-saffron" aria-hidden="true">🏦</div>
+      <h3>IFSC Code Finder</h3>
+      <p>Look up IFSC codes for any bank branch across India. Supports all major banks and rural cooperative banks.</p>
+      <span class="tool-link">Coming Soon <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a href="/tools.html" class="tool-card" aria-label="PIN Code Finder tool">
+      <span class="badge-soon">Coming Soon</span>
+      <div class="tool-icon icon-turmeric" aria-hidden="true">📍</div>
+      <h3>PIN Code Finder</h3>
+      <p>Find PIN codes for any area in India with delivery info, district, and state details. Powered by India Post data.</p>
+      <span class="tool-link">Coming Soon <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+
   </div>
 
-  <div class="card">
-    <h3>URL Encoder</h3>
-    <p>Cleanly encode and decode URLs for APIs.</p>
+  <div style="text-align:center; margin-top: 44px;">
+    <a href="/tools.html" class="btn-primary">View All 20+ Tools →</a>
   </div>
+</section>
 
-  <div class="card">
-    <h3>JWT Decoder</h3>
-    <p>Inspect and debug authentication tokens.</p>
+<!-- ── CATEGORIES ── -->
+<div class="divider" aria-hidden="true">
+  <svg width="120" height="20" viewBox="0 0 120 20"><path d="M0 10 Q30 0 60 10 Q90 20 120 10" stroke="currentColor" stroke-width="1" fill="none" opacity="0.4"/></svg>
+</div>
+
+<section class="section" aria-labelledby="categories-heading">
+  <div class="section-header">
+    <div class="section-tag">Browse by Category</div>
+    <h2 class="section-title" id="categories-heading">Tools for Every Need</h2>
+    <p class="section-sub">Organised by what matters most to Indians</p>
   </div>
-</section> -->
+  <div class="categories">
+    <a href="/tools.html#finance" class="cat-pill">💸 Finance & Tax</a>
+    <a href="/tools.html#govt" class="cat-pill">🏛️ Government Info</a>
+    <a href="/tools.html#salary" class="cat-pill">💼 Jobs & Salary</a>
+    <a href="/tools.html#culture" class="cat-pill">🪔 Culture & Festivals</a>
+    <a href="/tools.html#education" class="cat-pill">🎓 Education</a>
+    <a href="/tools.html#banking" class="cat-pill">🏦 Banking</a>
+    <a href="/tools.html#location" class="cat-pill">📍 Location Tools</a>
+    <a href="/tools.html#utilities" class="cat-pill">⚙️ Utilities</a>
+  </div>
+</section>
+</main>
 
+<!-- ── HOW IT WORKS ── -->
+<section class="how-section" aria-labelledby="how-heading">
+  <div class="how-inner">
+    <div class="section-header">
+      <div class="section-tag">How It Works</div>
+      <h2 class="section-title" id="how-heading">Simple. Fast. Free.</h2>
+      <p class="section-sub">Kafinder tools are designed to give you answers in seconds — no fluff</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Pick a Tool</h4>
+        <p>Browse our growing library of India-specific finder tools and calculators</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Enter Your Query</h4>
+        <p>Type a product name, amount, or keyword — results show instantly</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Get Your Answer</h4>
+        <p>Clear, accurate, sourced results — no login, no subscription, no ads blocking your answer</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>Share or Save</h4>
+        <p>Copy the result, share the link, or bookmark for quick access later</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
 <footer>
-  Built for developers · More tools coming soon
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="/" class="logo" aria-label="Kafinder Home">
+          <div class="logo-mark" aria-hidden="true">क</div>
+          <span class="logo-text">Ka<span style="color:var(--saffron)">finder</span></span>
+        </a>
+        <p>Free, accurate, and fast finder tools built for India. No login needed.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Tools</h5>
+        <ul>
+          <li><a href="/gst-rate-finder.html">GST Rate Finder</a></li>
+          <li><a href="/tools.html">Salary Finder</a></li>
+          <li><a href="/tools.html">Holiday Finder</a></li>
+          <li><a href="/tools.html">IFSC Finder</a></li>
+          <li><a href="/tools.html">View All Tools</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Categories</h5>
+        <ul>
+          <li><a href="/tools.html#finance">Finance & Tax</a></li>
+          <li><a href="/tools.html#govt">Government</a></li>
+          <li><a href="/tools.html#salary">Jobs & Salary</a></li>
+          <li><a href="/tools.html#culture">Culture</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Info</h5>
+        <ul>
+          <li><a href="/about.html">About Kafinder</a></li>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/disclaimer.html">Disclaimer</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/sitemap.xml">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Kafinder.com — Made with ❤️ in India</p>
+      <p>
+        <a href="/privacy.html">Privacy</a> ·
+        <a href="/disclaimer.html">Disclaimer</a> ·
+        <a href="/sitemap.xml">Sitemap</a>
+      </p>
+    </div>
+  </div>
 </footer>
 
 </body>
